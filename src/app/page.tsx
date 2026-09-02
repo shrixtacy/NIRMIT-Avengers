@@ -1,6 +1,7 @@
 import ParallaxHero from "./components/ParallaxHero";
 import AboutSection from "./components/AboutSection";
 import MarqueeBanner from "./components/MarqueeBanner";
+import PrizePoolSection from "./components/PrizePoolSection";
 import EventsDial from "./components/EventsDial";
 import TimelineSection from "./components/TimelineSection";
 import RegistrationCTA from "./components/RegistrationCTA";
@@ -14,6 +15,7 @@ export default function Home() {
       <ParallaxHero />
       <AboutSection />
       <MarqueeBanner />
+      <PrizePoolSection />
       <EventsDial />
       <TimelineSection />
       <RegistrationCTA />

@@ -140,7 +140,7 @@ const eventsDictionary: Record<string, EventDetails> = {
       "Stadium lighting and concert audio support.",
     ],
     bgImage: "/groove-bg.webp",
-    heroLeft: "/groove-vol3.webp",
+    heroLeft: "/groove-bottom-left.webp",
     heroRight: "/groove-top-right.webp",
   },
   "quantumania": {

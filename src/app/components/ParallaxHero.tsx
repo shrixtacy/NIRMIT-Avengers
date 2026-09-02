@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 interface LayerConfig {
@@ -11,13 +11,12 @@ interface LayerConfig {
 }
 
 const layers: LayerConfig[] = [
-  { src: "/layers/0 Layer.webp", depth: 0, scale: 1.12 },
-  { src: "/layers/1 Layer.webp", depth: 18, scale: 1.12, baseOffsetX: -20 },
-  { src: "/layers/2 Layer.webp", depth: 36, scale: 1.16 },
-  { src: "/layers/3.5.webp", depth: 48, scale: 1.2 },
-  { src: "/layers/3 Layer.webp", depth: 60, scale: 1.24 },
-  { src: "/layers/4 Layer.webp", depth: 85, scale: 1.3 },
-  { src: "/layers/5 Layer.webp", depth: 110, scale: 1.35 },
+  { src: "/layers/hero-layer-0.webp", depth: 0, scale: 1.12 },
+  { src: "/layers/hero-layer-1.webp", depth: 18, scale: 1.12, baseOffsetX: -20 },
+  { src: "/layers/hero-layer-2.webp", depth: 36, scale: 1.16 },
+  { src: "/layers/hero-layer-3.webp", depth: 60, scale: 1.24 },
+  { src: "/layers/hero-layer-4.webp", depth: 85, scale: 1.3 },
+  { src: "/layers/hero-layer-5.webp", depth: 110, scale: 1.35 },
 ];
 
 const INTRO_INITIAL_DELAY = 150;
@@ -39,10 +38,18 @@ export default function ParallaxHero() {
   const [introTriggered, setIntroTriggered] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile]             = useState(false);
+  const [isIOS, setIsIOS]                   = useState(false);
+  const [gyroRequested, setGyroRequested]   = useState(false);
+  const [gyroActive, setGyroActive]         = useState(false);
 
-  // Detect mobile
+  // Detect mobile & iOS platform
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
+    const check = () => {
+      setIsMobile(window.innerWidth <= 768);
+      const userAgent = window.navigator.userAgent || "";
+      const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      setIsIOS(isIOSDevice);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -61,47 +68,78 @@ export default function ParallaxHero() {
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [isMobile]);
 
-  // --- Input listeners (gyro / touch / mouse) ---
-  useEffect(() => {
-    // 1. Gyroscope handler — beta-45 trick: natural hold angle = neutral
-    const handleOrientation = (e: DeviceOrientationEvent) => {
-      if (e.gamma !== null && e.beta !== null) {
-        const nx = Math.max(-1, Math.min(1, e.gamma / 25));
-        const ny = Math.max(-1, Math.min(1, (e.beta - 45) / 25));
-        targetRef.current = { x: nx, y: ny };
-      }
-    };
+  // Gyroscope orientation handler with landscape angle support
+  const handleOrientation = useCallback((e: DeviceOrientationEvent) => {
+    if (e.gamma === null || e.beta === null) return;
+    
+    const rawX = e.gamma; // -90 to 90
+    const rawY = e.beta;  // -180 to 180
 
-    // 2. Touch fallback — dragging across screen tilts the scene
+    // Account for screen orientation (portrait vs landscape)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const angle = window.screen?.orientation?.angle ?? (typeof (window as any).orientation === "number" ? (window as any).orientation : 0);
+    let x = rawX;
+    let y = rawY;
+
+    if (angle === 90) {
+      x = -rawY;
+      y = rawX;
+    } else if (angle === -90 || angle === 270) {
+      x = rawY;
+      y = -rawX;
+    } else if (angle === 180) {
+      x = -rawX;
+      y = -rawY;
+    }
+
+    // Natural hold angle in portrait: phone held at ~45deg pitch
+    const nx = Math.max(-1, Math.min(1, x / 22));
+    const ny = Math.max(-1, Math.min(1, (y - 45) / 22));
+
+    targetRef.current = { x: nx, y: ny };
+    setGyroActive(true);
+  }, []);
+
+  // Explicit user gesture request for iOS 13+
+  const requestGyroPermission = useCallback(async () => {
+    if (gyroRequested) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const DOE = (window as any).DeviceOrientationEvent;
+    if (DOE && typeof DOE.requestPermission === "function") {
+      try {
+        const state = await DOE.requestPermission();
+        setGyroRequested(true);
+        if (state === "granted") {
+          window.addEventListener("deviceorientation", handleOrientation);
+          setGyroActive(true);
+        }
+      } catch (err) {
+        console.error("iOS Gyroscope permission error:", err);
+        setGyroRequested(true);
+      }
+    } else if (DOE) {
+      window.addEventListener("deviceorientation", handleOrientation);
+      setGyroRequested(true);
+      setGyroActive(true);
+    }
+  }, [gyroRequested, handleOrientation]);
+
+  // Input listeners
+  useEffect(() => {
+    // 1. Touch fallback — dragging finger across screen tilts scene immediately
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
         const touch = e.touches[0];
         const nx = (touch.clientX - window.innerWidth  / 2) / (window.innerWidth  / 2);
         const ny = (touch.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
         targetRef.current = {
-          x: Math.max(-1, Math.min(1, nx)),
-          y: Math.max(-1, Math.min(1, ny)),
+          x: Math.max(-1, Math.min(1, nx * 1.25)),
+          y: Math.max(-1, Math.min(1, ny * 1.25)),
         };
       }
     };
 
-    // 3. iOS 13+ permission — triggered on first tap
-    const requestGyroPermission = async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const DOE = (window as any).DeviceOrientationEvent;
-      if (DOE && typeof DOE.requestPermission === "function") {
-        try {
-          const state = await DOE.requestPermission();
-          if (state === "granted") {
-            window.addEventListener("deviceorientation", handleOrientation);
-          }
-        } catch (err) {
-          console.error("Gyroscope permission error:", err);
-        }
-      }
-    };
-
-    // 4. Desktop mouse
+    // 2. Desktop mouse
     const handleMouseMove = (e: MouseEvent) => {
       targetRef.current = {
         x: Math.max(-1, Math.min(1, (e.clientX - window.innerWidth  / 2) / (window.innerWidth  / 2))),
@@ -109,63 +147,56 @@ export default function ParallaxHero() {
       };
     };
 
-    // Attach touch listeners (always — touch fallback + iOS permission trigger)
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchstart", requestGyroPermission, { once: true });
+    window.addEventListener("mousemove", handleMouseMove);
 
-    // Android / non-permission browsers: attach orientation immediately
+    // Auto-attach deviceorientation if requestPermission is NOT required (Android / non-iOS)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const DOE = (window as any).DeviceOrientationEvent;
     if (DOE && typeof DOE.requestPermission !== "function") {
       window.addEventListener("deviceorientation", handleOrientation);
+      setGyroActive(true);
     }
-
-    // Desktop mouse
-    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("deviceorientation", handleOrientation);
       window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchstart", requestGyroPermission);
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [handleOrientation]);
 
-  // --- 60fps RAF render loop ---
+  // 60fps RAF render loop
   useEffect(() => {
     let animId: number;
 
     const loop = () => {
-      // Smooth LERP toward target
       motionRef.current.x += (targetRef.current.x - motionRef.current.x) * 0.07;
       motionRef.current.y += (targetRef.current.y - motionRef.current.y) * 0.07;
 
       const cx = motionRef.current.x;
       const cy = motionRef.current.y;
 
-      // Scene-level 3D tilt
       if (sceneRef.current) {
         sceneRef.current.style.transform =
           `rotateX(${-cy * 5}deg) rotateY(${cx * 6}deg)`;
       }
 
-      // Per-layer parallax translation
       layerRefs.current.forEach((el, i) => {
         if (!el) return;
         const layer  = layers[i];
         const baseX  = layer.baseOffsetX ?? 0;
-        const m      = isMobile ? 0.6 : 1;
+        const m      = isMobile ? 0.75 : 1;
         const tx     = cx * layer.depth * m + baseX;
         const ty     = cy * layer.depth * m;
         el.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${layer.scale})`;
       });
 
-      // Text wrapper
       if (textRef.current) {
-        const opacity = isMobile ? 0.9 : 0.25 + scrollProgress * 0.75;
+        const opacity = isMobile ? 0.95 : 0.25 + scrollProgress * 0.75;
         const tsc     = 0.95 + scrollProgress * 0.25;
         textRef.current.style.transform = `translate3d(${cx * 15}px, ${cy * 15}px, 0) scale(${tsc})`;
         textRef.current.style.opacity   = String(opacity);
+        textRef.current.style.zIndex    = scrollProgress > 0.12 ? "10" : "3";
       }
 
       animId = requestAnimationFrame(loop);
@@ -189,8 +220,21 @@ export default function ParallaxHero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Trigger iOS permission on user interaction
+  const handleUserInteraction = () => {
+    if (!gyroRequested) {
+      requestGyroPermission();
+    }
+  };
+
   return (
-    <section id="hero-parallax" ref={containerRef} className="parallax-hero">
+    <section 
+      id="hero-parallax" 
+      ref={containerRef} 
+      className="parallax-hero"
+      onClick={handleUserInteraction}
+      onTouchStart={handleUserInteraction}
+    >
       <div
         ref={stickyRef}
         className="parallax-sticky"
@@ -227,8 +271,8 @@ export default function ParallaxHero() {
             ref={textRef}
             className="nirmit-text-wrapper"
             style={{
-              zIndex: scrollProgress > 0.1 ? 4 : 3,
-              opacity: isMobile ? 0.9 : 0.25,
+              zIndex: scrollProgress > 0.12 ? 10 : 3,
+              opacity: isMobile ? 0.95 : 0.25,
             }}
           >
             <h1 className="nirmit-text">NIRMIT</h1>
@@ -238,12 +282,24 @@ export default function ParallaxHero() {
         <div className="parallax-vignette" />
         <div className="parallax-corner-shadows" />
 
-        {/* Mobile-only tagline overlay — sits above everything */}
+        {/* Mobile-only tagline & optional iOS Motion Enable Badge */}
         {isMobile && (
           <div className="hero-mobile-tagline">
             <p className="hero-mobile-tagline-text">
               The Tech &amp; Management Fest of NMIET
             </p>
+            {isIOS && !gyroActive && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  requestGyroPermission();
+                }}
+                className="gyro-enable-badge"
+              >
+                <span>✨ TAP TO ENABLE 3D GYRO MOTION</span>
+              </button>
+            )}
           </div>
         )}
       </div>

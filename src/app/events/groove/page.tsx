@@ -26,7 +26,7 @@ export default function GuardiansOfGroovePage() {
       {/* Hero Bottom-Left Character */}
       <div className="groove-hero-left" style={{ position: "fixed", bottom: "-100px", left: "0px", zIndex: 2, pointerEvents: "none", width: "clamp(180px, 20vw, 320px)", height: "clamp(180px, 20vw, 320px)", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.9))" }}>
         <Image
-          src="/groove-vol3.webp"
+          src="/groove-bottom-left.webp"
           alt="Guardians Character Bottom Left"
           fill
           unoptimized
