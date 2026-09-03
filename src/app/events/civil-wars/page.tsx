@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 export default function CivilWarsEventPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   return (
     <main className="civil-page-container">
@@ -73,7 +75,7 @@ export default function CivilWarsEventPage() {
             <span className="civil-stat-icon">📅</span>
             <div className="civil-stat-info">
               <span className="stat-card-label">EVENT DATE</span>
-              <span className="stat-card-value">9 October 2026</span>
+              <span className="stat-card-value">To Be Revealed</span>
             </div>
           </div>
 
@@ -275,9 +277,9 @@ export default function CivilWarsEventPage() {
             <p>Register your 4-player crew for Free Fire tournament at MBA Auditorium.</p>
           </div>
           <div className="cta-buttons">
-            <a href="/#register" className="civil-register-btn">
+            <button onClick={openModal} className="civil-register-btn" style={{ cursor: "pointer", border: "none" }}>
               REGISTER FOR CIVIL WARS →
-            </a>
+            </button>
           </div>
         </div>
       </div>

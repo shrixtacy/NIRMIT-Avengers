@@ -6,6 +6,8 @@ import Link from "next/link";
 import EventsDial from "../components/EventsDial";
 import Footer from "../components/Footer";
 
+import { useRegistrationModal } from "../components/RegistrationModal";
+
 interface TrumpEvent {
   id: string;
   name: string;
@@ -36,9 +38,9 @@ const trumpEvents: TrumpEvent[] = [
       "Precision aerial waypoint tracking & speed laps.",
       "Custom obstacle ring gates & crash telemetry.",
     ],
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "8:00 AM - 1:00 PM",
-    reporting: "7:00 AM - 8:00 AM",
+    reporting: "To Be Revealed",
     venue: "Football Ground",
     leads: ["Santosh Sahu", "J. Binita", "Sanjay Ray"],
   },
@@ -55,9 +57,9 @@ const trumpEvents: TrumpEvent[] = [
       "Mid evaluation checkpoint on Day 1 (2 PM - 6 PM).",
       "Main jury demo on Day 2 (10 AM - 3 PM).",
     ],
-    date: "10 - 11 October 2026",
+    date: "To Be Revealed",
     time: "Day 1 Launch 8 AM | Day 2 Final 3 PM",
-    reporting: "8:00 AM on 10 Oct",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Pragyan Srichandan", "Sanjay Dash", "Maneesh Yadav", "SK Saffruddin"],
   },
@@ -74,28 +76,28 @@ const trumpEvents: TrumpEvent[] = [
       "Focus on sustainability, AI, & smart engineering.",
       "Live Q&A and prototype evaluation by industry jury.",
     ],
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "1:00 PM - 5:00 PM",
-    reporting: "12:00 PM - 1:00 PM",
+    reporting: "To Be Revealed",
     venue: "Seminar Hall, MBA Block",
-    leads: ["Jaswant Patro", "J. Binita", "Santosh Sahu"],
+    leads: ["Monalisa Sethi", "Dr. Subhasree Bose", "Abinash Pradhan"],
   },
   {
     id: "ultron",
     name: "Project Ultron",
-    tier: "silver",
-    frameImg: "/cards/silver-card.webp",
+    tier: "gold",
+    frameImg: "/cards/gold-card.webp",
     bgImg: "/ultron-bg.webp",
-    tag: "SMART HARDWARE SHOWCASE",
-    domain: "IoT / Exhibition",
+    tag: "IOT & HARDWARE EXHIBITION",
+    domain: "IoT / Hardware",
     points: [
-      "Live hardware demonstrations of smart IoT systems.",
-      "Sensor networks, microcontrollers, & robotics.",
-      "Real-world application judging & peer voting.",
+      "Showcase smart connected systems & hardware prototypes.",
+      "Live demonstrations to faculty & visiting delegates.",
+      "Awards for most innovative project & best pitch.",
     ],
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "2:00 PM - 5:00 PM",
-    reporting: "12:00 PM - 1:00 PM",
+    reporting: "To Be Revealed",
     venue: "Electrical Block Hallway",
     leads: ["Jitendra Padhi", "Bhagyalaxmi Devi", "Pranaya Rout"],
   },
@@ -112,9 +114,9 @@ const trumpEvents: TrumpEvent[] = [
       "Live match shoutcasting & spectator arena.",
       "Prize pool & battle victory trophy for top squad.",
     ],
-    date: "9 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM - 5:00 PM",
-    reporting: "1:30 PM - 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Rashmi Rath", "Om Prakash Narayan Kar", "Prabir Das"],
   },
@@ -131,9 +133,9 @@ const trumpEvents: TrumpEvent[] = [
       "Solo & group dance routines in futuristic gear.",
       "Stadium audio, light synchronization & judging.",
     ],
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM - 8:00 PM",
-    reporting: "8:00 AM - 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Saroj Jena", "Sushree Sucharita Kar", "Bhabani Sankar Sahani"],
   },
@@ -150,9 +152,9 @@ const trumpEvents: TrumpEvent[] = [
       "Buzzer rounds, visual code snippets, & mystery trivia.",
       "Team trivia battle with instant leaderboard.",
     ],
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM - 12:00 PM",
-    reporting: "8:00 AM - 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Reading Room, Central Library",
     leads: ["Chanchal Mukherjee", "Neeha Pradhani", "Sangram Behera"],
   },
@@ -169,9 +171,9 @@ const trumpEvents: TrumpEvent[] = [
       "Canvas & painting materials provided on venue.",
       "Judged on creativity, theme relevance, & detail.",
     ],
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM - 1:00 PM",
-    reporting: "8:00 AM - 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Reading Room, Central Library",
     leads: ["Madhubrata Dash", "Tusharkanta Das", "Swarna Prava Sahu"],
   },
@@ -188,9 +190,9 @@ const trumpEvents: TrumpEvent[] = [
       "Keynotes from CTOs, academic leaders, & founders.",
       "Interactive audience Q&A & career mentoring.",
     ],
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM - 5:00 PM",
-    reporting: "1:00 PM - 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Kashinath Pati", "Barsha Priyadarshini", "Sambit Sethy"],
   },
@@ -207,9 +209,9 @@ const trumpEvents: TrumpEvent[] = [
       "Insights into next-decade engineering trends.",
       "Networking opportunity with distinguished speakers.",
     ],
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM - 5:00 PM",
-    reporting: "1:00 PM - 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Conference Hall, Academic Block",
     leads: ["Prajnadipta Sahu", "Bijaya Gouda", "Gopabandhu Sahu"],
   },
@@ -294,6 +296,7 @@ const trumpEvents: TrumpEvent[] = [
 export default function EventsPage() {
   const [filter, setFilter] = useState<"all" | "gold" | "silver" | "bronze">("all");
   const [selectedEvent, setSelectedEvent] = useState<TrumpEvent | null>(null);
+  const { openModal } = useRegistrationModal();
 
   const filteredEvents = filter === "all"
     ? trumpEvents
@@ -309,7 +312,7 @@ export default function EventsPage() {
         <div style={{ textAlign: "center", marginBottom: "50px" }}>
           <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "6px 20px", borderRadius: "999px", marginBottom: "16px" }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.82rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.12em" }}>
-              REGISTRATION OPEN: 3RD SEPT — 23RD SEPT 2026
+              REGISTRATION DATES: TO BE REVEALED
             </span>
           </div>
 
@@ -482,18 +485,16 @@ export default function EventsPage() {
             </ul>
 
             <div style={{ background: "rgba(255,255,255,0.06)", padding: "12px 16px", borderRadius: "6px", marginBottom: "24px", fontSize: "0.82rem", color: "#cbd5e1" }}>
-              ⚡ <strong>Constraint Notice:</strong> Registrations accepted between 3rd Sept and 23rd Sept 2026. First-come, first-served allocation policy applies!
+              ⚡ <strong>Constraint Notice:</strong> Registration window: Dates To Be Revealed. First-come, first-served allocation policy applies!
             </div>
 
-            <a
-              href="https://forms.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openModal}
               className="fast-assemble-btn"
-              style={{ width: "100%", justifyContent: "center" }}
+              style={{ width: "100%", justifyContent: "center", cursor: "pointer" }}
             >
               REGISTER FOR {selectedEvent.name.toUpperCase()} NOW →
-            </a>
+            </button>
           </div>
         </div>
       )}

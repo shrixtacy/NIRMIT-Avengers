@@ -1,10 +1,10 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import Footer from "../../components/Footer";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 interface EventDetails {
   id: string;
@@ -31,9 +31,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "DRONE OBSTACLE COURSE",
     domain: "Drone / Robotics",
     description: "High-speed FPV drone obstacle course navigation testing precision aerial control, elevation maneuvers, and tactical reaction time.",
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "8:00 AM – 1:00 PM",
-    reporting: "7:00 AM – 8:00 AM",
+    reporting: "To Be Revealed",
     venue: "Football Ground",
     leads: ["Santosh Sahu", "J. Binita", "Sanjay Ray"],
     points: [
@@ -51,9 +51,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "AGENTIC AI HACKATHON",
     domain: "Software / AI / Innovation",
     description: "Flagship 48-hour continuous build sprint creating autonomous LLM agents, multi-agent orchestrators, and accessibility tools.",
-    date: "10 - 11 October 2026",
+    date: "To Be Revealed",
     time: "Day 1 Launch 8 AM | Day 2 Final 3 PM",
-    reporting: "8:00 AM on 10 Oct 2026",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Pragyan Srichandan", "Sanjay Dash", "Maneesh Yadav", "SK Saffruddin"],
     points: [
@@ -69,9 +69,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "IDEATHON 2026",
     domain: "Innovation / Ideation",
     description: "Startup pitch competition focusing on sustainable engineering, AI automation, and tech-driven business models.",
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "1:00 PM – 5:00 PM",
-    reporting: "12:00 PM – 1:00 PM",
+    reporting: "To Be Revealed",
     venue: "Seminar Hall, MBA Block",
     leads: ["Jaswant Patro", "J. Binita", "Santosh Sahu"],
     points: [
@@ -89,9 +89,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "IOT DISPLAY SHOWCASE",
     domain: "IoT / Hardware Exhibition",
     description: "Exhibition showcasing connected devices, sensor networks, microcontroller automation, and smart hardware prototypes.",
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "2:00 PM – 5:00 PM",
-    reporting: "12:00 PM – 1:00 PM",
+    reporting: "To Be Revealed",
     venue: "Electrical Block Hallway",
     leads: ["Jitendra Padhi", "Bhagyalaxmi Devi", "Pranaya Rout"],
     points: [
@@ -109,9 +109,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "FREE FIRE GAMING TOURNAMENT",
     domain: "Gaming / Esports",
     description: "Competitive Free Fire battle royale squad showdown in custom rooms with live stadium shoutcasting.",
-    date: "9 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM – 5:00 PM",
-    reporting: "1:30 PM – 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Rashmi Rath", "Om Prakash Narayan Kar", "Prabir Das"],
     points: [
@@ -129,9 +129,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "TECHNO DANCE BATTLE",
     domain: "Cultural / Dance",
     description: "High-octane dance competition fusing robotics choreography, synth techno music, and sci-fi aesthetic.",
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 8:00 PM",
-    reporting: "8:00 AM – 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Saroj Jena", "Sushree Sucharita Kar", "Bhabani Sankar Sahani"],
     points: [
@@ -149,9 +149,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "TECH QUIZ CHAMPIONSHIP",
     domain: "CS / Algorithmic Quiz",
     description: "Rapid-fire algorithmic & tech trivia battle testing knowledge on CS history, AI models, and emerging hardware.",
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 12:00 PM",
-    reporting: "8:00 AM – 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Reading Room, Central Library",
     leads: ["Chanchal Mukherjee", "Neeha Pradhani", "Sangram Behera"],
     points: [
@@ -169,9 +169,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "TECH THEMED PAINTING",
     domain: "Art & Cyber Creativity",
     description: "Canvas painting competition where artists translate futuristic sci-fi visions and AI concepts onto canvas.",
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 1:00 PM",
-    reporting: "8:00 AM – 9:00 AM",
+    reporting: "To Be Revealed",
     venue: "Reading Room, Central Library",
     leads: ["Madhubrata Dash", "Tusharkanta Das", "Swarna Prava Sahu"],
     points: [
@@ -188,9 +188,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "PANEL DISCUSSION",
     domain: "Discussion / Symposium",
     description: "Executive panel discussion featuring CTOs, academic directors, and founders discussing autonomous systems and AI ethics.",
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM – 5:00 PM",
-    reporting: "1:00 PM – 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Auditorium, MBA Block",
     leads: ["Kashinath Pati", "Barsha Priyadarshini", "Sambit Sethy"],
     points: [
@@ -206,9 +206,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "EXPERT TALK SERIES",
     domain: "Seminar / Masterclass",
     description: "In-depth masterclass delivered by distinguished industry experts covering Deep Tech, Quantum AI, and Robotics.",
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "3:00 PM – 5:00 PM",
-    reporting: "1:00 PM – 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Conference Hall, Academic Block",
     leads: ["Prajnadipta Sahu", "Bijaya Gouda", "Gopabandhu Sahu"],
     points: [
@@ -224,9 +224,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "STARK EXPO - TECHNICAL POSTER",
     domain: "Branding & Designing",
     description: "Technical poster presentation where students showcase engineering research, renewable energy, and algorithm infographics.",
-    date: "7 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 1:00 PM",
-    reporting: "9:00 AM – 10:00 AM",
+    reporting: "To Be Revealed",
     venue: "Academic Block Hallway",
     leads: ["Priyabrata Mohanty", "Alok Kumar Swain"],
     points: [
@@ -242,9 +242,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "THUNDERBOLTS - AD MAD SHOW",
     domain: "Branding & Dramatics",
     description: "Quirky creative advertising competition where teams act out humorous live commercials for given futuristic tech products.",
-    date: "8 October 2026",
+    date: "To Be Revealed",
     time: "2:00 PM – 5:00 PM",
-    reporting: "1:00 PM – 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "MBA Seminar Hall",
     leads: ["Sunita Dash", "Soumya Ranjan Panda"],
     points: [
@@ -262,9 +262,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "BUSINESS CASE PITCH",
     domain: "Marketing & Business",
     description: "Corporate marketing challenge where teams analyze real-world case studies and pitch growth strategies.",
-    date: "9 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 1:00 PM",
-    reporting: "9:00 AM – 10:00 AM",
+    reporting: "To Be Revealed",
     venue: "Conference Hall, Academic Block",
     leads: ["Subhasish Ray", "Ananya Jena"],
     points: [
@@ -280,9 +280,9 @@ const eventsDictionary: Record<string, EventDetails> = {
     category: "CXO ROUNDTABLE SUMMIT",
     domain: "Business & Tech",
     description: "Exclusive roundtable meeting bringing together CXOs, academic leaders, and founders to discuss future tech ecosystems.",
-    date: "9 October 2026",
+    date: "To Be Revealed",
     time: "2:00 PM – 4:30 PM",
-    reporting: "1:00 PM – 2:00 PM",
+    reporting: "To Be Revealed",
     venue: "Executive Boardroom, MBA Block",
     leads: ["Rakesh Kumar Parida", "Dr. S. N. Das"],
     points: [
@@ -298,6 +298,7 @@ export default function DynamicEventPage({ params }: { params: Promise<{ id: str
   const resolvedParams = use(params);
   const eventId = resolvedParams.id;
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   const eventData = eventsDictionary[eventId] || {
     id: eventId,
@@ -305,9 +306,9 @@ export default function DynamicEventPage({ params }: { params: Promise<{ id: str
     category: "NIRMIT 2.0 EVENT",
     domain: "Technology / Competition",
     description: "Official NIRMIT 2.0 technical event hosted at NMIET Campus, Bhubaneswar.",
-    date: "7 - 11 October 2026",
+    date: "To Be Revealed",
     time: "10:00 AM – 5:00 PM",
-    reporting: "1 Hour Prior to Event Start",
+    reporting: "To Be Revealed",
     venue: "NMIET Campus Auditorium",
     leads: ["Faculty Convenor", "Student Coordinator"],
     points: [
@@ -462,7 +463,7 @@ export default function DynamicEventPage({ params }: { params: Promise<{ id: str
                 ))}
               </ul>
               <div style={{ background: "rgba(255,255,255,0.06)", padding: "16px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", fontSize: "0.9rem", color: "#cbd5e1" }}>
-                ⚡ <strong>Registration Window:</strong> 3rd September 2026 to 23rd September 2026. Slots strictly allocated on First-Come, First-Served (FCFS) basis.
+                ⚡ <strong>Registration Window:</strong> Dates To Be Revealed. Slots strictly allocated on First-Come, First-Served (FCFS) basis.
               </div>
             </div>
           )}
@@ -515,17 +516,15 @@ export default function DynamicEventPage({ params }: { params: Promise<{ id: str
             READY TO REGISTER FOR {eventData.name}?
           </h3>
           <p style={{ color: "rgba(241,245,249,0.85)", fontSize: "1rem", marginBottom: "24px" }}>
-            Registration window closes 23rd September 2026. Secure your slot now.
+            Registration window opens 5th September 2026. Secure your slot now.
           </p>
-          <a
-            href="https://forms.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={openModal}
             className="fast-assemble-btn"
-            style={{ display: "inline-flex", margin: "0 auto" }}
+            style={{ display: "inline-flex", margin: "0 auto", cursor: "pointer", border: "none" }}
           >
             REGISTER FOR {eventData.name} NOW →
-          </a>
+          </button>
         </div>
       </div>
 

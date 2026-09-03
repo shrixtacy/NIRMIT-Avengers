@@ -13,8 +13,8 @@ interface DaySchedule {
 
 const schedule: DaySchedule[] = [
   {
-    day: "OCT 7",
-    date: "Day 1 (7 Oct)",
+    day: "TBR",
+    date: "Day 1 (To Be Revealed)",
     title: "Launch & Displays",
     highlights: [
       "Drone Obstacle Course (7 AM)",
@@ -24,8 +24,8 @@ const schedule: DaySchedule[] = [
     ],
   },
   {
-    day: "OCT 8",
-    date: "Day 2 (8 Oct)",
+    day: "TBR",
+    date: "Day 2 (To Be Revealed)",
     title: "Battle & Ideation",
     highlights: [
       "Techno Dance (8 AM - 8 PM)",
@@ -35,8 +35,8 @@ const schedule: DaySchedule[] = [
     ],
   },
   {
-    day: "OCT 9",
-    date: "Day 3 (9 Oct)",
+    day: "TBR",
+    date: "Day 3 (To Be Revealed)",
     title: "Esports Combat",
     highlights: [
       "Free Fire Gaming Tournament (1:30 PM)",
@@ -45,8 +45,8 @@ const schedule: DaySchedule[] = [
     ],
   },
   {
-    day: "OCT 10-11",
-    date: "Day 4 & 5 (10-11 Oct)",
+    day: "TBR",
+    date: "Day 4 & 5 (To Be Revealed)",
     title: "Agentic AI Hackathon",
     highlights: [
       "Day 1: 8 AM Launch & Sprint",
@@ -95,7 +95,7 @@ export default function TimelineSection() {
         <div className={`timeline-header reveal${isRevealed ? " revealed" : ""}`} style={{ textAlign: "center" }}>
           <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "8px 20px", borderRadius: "999px", marginBottom: "16px" }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.85rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.1em" }}>
-              REGISTRATION: 3RD SEPT — 23RD SEPT 2026
+              REGISTRATION DATES: TO BE REVEALED
             </span>
           </div>
           <h2 className="section-title" style={{ display: "block" }}>EVENT TIMELINE</h2>
@@ -107,7 +107,7 @@ export default function TimelineSection() {
         <div className="timeline-grid" style={{ marginTop: "40px" }}>
           {schedule.map((day, index) => (
             <div
-              key={day.day}
+              key={day.date}
               className={`timeline-card reveal reveal-delay-${index + 1}${isRevealed ? " revealed" : ""}`}
               style={{ background: "linear-gradient(135deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%)", border: "1px solid rgba(255,255,255,0.2)" }}
             >

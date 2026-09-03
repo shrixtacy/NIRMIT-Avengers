@@ -39,14 +39,18 @@ export const metadata: Metadata = {
   description: "NIRMIT 2.0 Edition returns after 10 years of legacy at NMIET Bhubaneswar. 5000+ Innovators, Drone Obstacle Course, Agentic AI Hackathon, IoT Display, Civil Wars Esports.",
 };
 
+import { RegistrationModalProvider } from "./components/RegistrationModal";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${bebasNeue.variable} ${antonio.variable} ${teko.variable} ${geistSans.variable} ${geistMono.variable}`}>
       <body suppressHydrationWarning>
-        <GlobalCornerOverlays />
-        <NirmitLogo />
-        <SmoothScroll>{children}</SmoothScroll>
-        <BottomNav />
+        <RegistrationModalProvider>
+          <GlobalCornerOverlays />
+          <NirmitLogo />
+          <SmoothScroll>{children}</SmoothScroll>
+          <BottomNav />
+        </RegistrationModalProvider>
       </body>
     </html>
   );

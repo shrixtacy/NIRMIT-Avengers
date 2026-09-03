@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "../../components/Footer";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 export default function QuantumaniaPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "schedule" | "rules" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   return (
     <main className="quantumania-page-container" style={{ minHeight: "100vh", background: "#040507", color: "#ffffff", position: "relative", overflowX: "hidden" }}>
@@ -74,7 +76,7 @@ export default function QuantumaniaPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px", marginBottom: "50px" }}>
           <div style={{ background: "linear-gradient(135deg, rgba(180,83,9,0.35) 0%, rgba(15,23,42,0.9) 100%)", border: "1px solid rgba(245,158,11,0.3)", borderRadius: "12px", padding: "20px", backdropFilter: "blur(12px)" }}>
             <span style={{ fontSize: "0.75rem", fontFamily: "var(--font-geist-mono), monospace", color: "rgba(255,255,255,0.6)", display: "block" }}>EVENT DATE</span>
-            <strong style={{ fontSize: "1.1rem", color: "#ffffff", display: "block", marginTop: "4px" }}>8 October 2026</strong>
+            <strong style={{ fontSize: "1.1rem", color: "#ffffff", display: "block", marginTop: "4px" }}>To Be Revealed</strong>
           </div>
 
           <div style={{ background: "linear-gradient(135deg, rgba(180,83,9,0.35) 0%, rgba(15,23,42,0.9) 100%)", border: "1px solid rgba(245,158,11,0.3)", borderRadius: "12px", padding: "20px", backdropFilter: "blur(12px)" }}>
@@ -196,15 +198,13 @@ export default function QuantumaniaPage() {
           <p style={{ color: "rgba(241,245,249,0.85)", fontSize: "1rem", marginBottom: "24px" }}>
             Register your team for Quantumania at Reading Room, Central Library.
           </p>
-          <a
-            href="https://forms.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={openModal}
             className="fast-assemble-btn"
-            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)", color: "#000000" }}
+            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)", color: "#000000", cursor: "pointer", border: "none" }}
           >
             REGISTER FOR QUANTUMANIA NOW →
-          </a>
+          </button>
         </div>
       </div>
 

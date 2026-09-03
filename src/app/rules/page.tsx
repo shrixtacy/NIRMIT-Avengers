@@ -38,7 +38,7 @@ const rulebookData: RuleSection[] = [
       {
         heading: "1.2 FCFS Registration Window & Seat Capping",
         details:
-          "The official registration portal opens on 3rd September 2026 at 09:00 AM IST and strictly closes on 23rd September 2026 at 11:59 PM IST. Due to venue capacity and hardware setup limits, every event operates under strict First-Come, First-Served (FCFS) slot allocation. Once event capacity is reached, waiting lists will be generated automatically.",
+          "The official registration portal opens on 5th September 2026. Registration dates and event schedule are To Be Revealed. Due to venue capacity and hardware setup limits, every event operates under strict First-Come, First-Served (FCFS) slot allocation. Once event capacity is reached, waiting lists will be generated automatically.",
       },
       {
         heading: "1.3 Team Formation & Roster Lock Policies",
@@ -155,7 +155,7 @@ const rulebookData: RuleSection[] = [
       {
         heading: "4.5 Art & Creative Competition Guidelines (INFINITY CANVAS)",
         details:
-          "Canvas boards will be supplied by the host institute. Participants must bring their own acrylic paints, brushes, palettes, and cleanup rags. Artworks must be produced entirely on-site adhering to the unannounced theme revealed at 10:00 AM on 7th October.",
+          "Canvas boards will be supplied by the host institute. Participants must bring their own acrylic paints, brushes, palettes, and cleanup rags. Artworks must be produced entirely on-site adhering to the unannounced theme revealed at session start.",
       },
     ],
   },
@@ -186,7 +186,7 @@ const rulebookData: RuleSection[] = [
       {
         heading: "5.4 Certificate & Prize Disbursement Terms",
         details:
-          "Certificate of Merit & Cash Prizes will be awarded only to teams present at the Closing Ceremony on 11th October 2026. Prize money will be disbursed via NEFT/UPI bank transfer to the registered team leader's account within 7 working days following tax/TDS verification.",
+          "Certificate of Merit & Cash Prizes will be awarded only to teams present at the Grand Closing Ceremony. Prize money will be disbursed via NEFT/UPI bank transfer to the registered team leader's account within 7 working days following tax/TDS verification.",
       },
     ],
   },

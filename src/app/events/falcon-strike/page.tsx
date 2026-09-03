@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 export default function FalconStrikePage() {
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   return (
     <main className="falcon-page-container">
@@ -73,7 +75,7 @@ export default function FalconStrikePage() {
             <span className="falcon-stat-icon">📅</span>
             <div className="falcon-stat-info">
               <span className="stat-card-label">EVENT DATE</span>
-              <span className="stat-card-value">7 October 2026</span>
+              <span className="stat-card-value">To Be Revealed</span>
             </div>
           </div>
 
@@ -279,9 +281,9 @@ export default function FalconStrikePage() {
             <p>Register your pilot crew for Falcon Strike at Football Ground before slots fill up.</p>
           </div>
           <div className="cta-buttons">
-            <a href="/#register" className="falcon-register-btn">
+            <button onClick={openModal} className="falcon-register-btn" style={{ cursor: "pointer", border: "none" }}>
               REGISTER FOR FALCON STRIKE →
-            </a>
+            </button>
           </div>
         </div>
       </div>

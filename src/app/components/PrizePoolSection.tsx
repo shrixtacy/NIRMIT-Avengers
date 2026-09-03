@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useRegistrationModal } from "./RegistrationModal";
 
 export default function PrizePoolSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [count, setCount] = useState(0);
+  const { openModal } = useRegistrationModal();
 
   const TARGET_AMOUNT = 150000;
   const DURATION_MS = 2400; // 2.4 second dramatic increment
@@ -135,9 +136,9 @@ export default function PrizePoolSection() {
 
         {/* CTA Button */}
         <div className="prizepool-cta-wrapper">
-          <Link href="/events" className="prizepool-cta-btn">
-            CLAIM YOUR REWARDS — EXPLORE EVENTS →
-          </Link>
+          <button onClick={openModal} className="prizepool-cta-btn" style={{ cursor: "pointer", border: "none" }}>
+            CLAIM YOUR REWARDS — REGISTER NOW →
+          </button>
         </div>
       </div>
     </section>

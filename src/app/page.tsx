@@ -1,3 +1,4 @@
+import LoadingScreen from "./components/LoadingScreen";
 import ParallaxHero from "./components/ParallaxHero";
 import AboutSection from "./components/AboutSection";
 import MarqueeBanner from "./components/MarqueeBanner";
@@ -12,11 +13,12 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <main suppressHydrationWarning>
+      <LoadingScreen />
       <ParallaxHero />
       <AboutSection />
       <MarqueeBanner />
-      <PrizePoolSection />
       <EventsDial />
+      <PrizePoolSection />
       <TimelineSection />
       <RegistrationCTA />
       <FAQSection />

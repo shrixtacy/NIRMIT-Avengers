@@ -8,15 +8,24 @@ interface LayerConfig {
   depth: number;
   scale: number;
   baseOffsetX?: number;
+  baseOffsetY?: number;
 }
 
-const layers: LayerConfig[] = [
+const desktopLayers: LayerConfig[] = [
   { src: "/layers/hero-layer-0.webp", depth: 0, scale: 1.12 },
   { src: "/layers/hero-layer-1.webp", depth: 18, scale: 1.12, baseOffsetX: -20 },
   { src: "/layers/hero-layer-2.webp", depth: 36, scale: 1.16 },
   { src: "/layers/hero-layer-3.webp", depth: 60, scale: 1.24 },
   { src: "/layers/hero-layer-4.webp", depth: 85, scale: 1.3 },
   { src: "/layers/hero-layer-5.webp", depth: 110, scale: 1.35 },
+];
+
+const mobileLayers: LayerConfig[] = [
+  { src: "/layers/mobile-layer-0.webp", depth: 0, scale: 1.12 },
+  { src: "/layers/mobile-layer-1.webp", depth: 25, scale: 1.18, baseOffsetY: -35 },
+  { src: "/layers/mobile-layer-2.webp", depth: 50, scale: 1.22, baseOffsetY: -45 },
+  { src: "/layers/mobile-layer-3.webp", depth: 75, scale: 1.25, baseOffsetY: -40 },
+  { src: "/layers/mobile-layer-4.webp", depth: 100, scale: 1.30 },
 ];
 
 const INTRO_INITIAL_DELAY = 150;
@@ -26,7 +35,8 @@ const INTRO_DURATION = 900;
 export default function ParallaxHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef    = useRef<HTMLDivElement>(null);
-  const layerRefs    = useRef<(HTMLDivElement | null)[]>([]);
+  const desktopLayerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileLayerRefs  = useRef<(HTMLDivElement | null)[]>([]);
   const textRef      = useRef<HTMLDivElement>(null);
   const sceneRef     = useRef<HTMLDivElement>(null);
 
@@ -45,7 +55,8 @@ export default function ParallaxHero() {
   // Detect mobile & iOS platform
   useEffect(() => {
     const check = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const isMob = window.innerWidth <= 768;
+      setIsMobile(isMob);
       const userAgent = window.navigator.userAgent || "";
       const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       setIsIOS(isIOSDevice);
@@ -63,7 +74,7 @@ export default function ParallaxHero() {
       return;
     }
     const t1 = setTimeout(() => setIntroTriggered(true), INTRO_INITIAL_DELAY);
-    const total = INTRO_INITIAL_DELAY + INTRO_STAGGER * layers.length + INTRO_DURATION + 50;
+    const total = INTRO_INITIAL_DELAY + INTRO_STAGGER * desktopLayers.length + INTRO_DURATION + 50;
     const t2 = setTimeout(() => setIntroComplete(true), total);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [isMobile]);
@@ -181,22 +192,28 @@ export default function ParallaxHero() {
           `rotateX(${-cy * 5}deg) rotateY(${cx * 6}deg)`;
       }
 
-      layerRefs.current.forEach((el, i) => {
+      const isMob = window.innerWidth <= 768;
+      const activeLayersConfig = isMob ? mobileLayers : desktopLayers;
+      const activeRefsArray   = isMob ? mobileLayerRefs : desktopLayerRefs;
+
+      activeRefsArray.current.forEach((el, i) => {
         if (!el) return;
-        const layer  = layers[i];
+        const layer  = activeLayersConfig[i];
+        if (!layer) return;
         const baseX  = layer.baseOffsetX ?? 0;
-        const m      = isMobile ? 0.75 : 1;
+        const baseY  = layer.baseOffsetY ?? 0;
+        const m      = isMob ? 0.75 : 1;
         const tx     = cx * layer.depth * m + baseX;
-        const ty     = cy * layer.depth * m;
+        const ty     = cy * layer.depth * m + baseY;
         el.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${layer.scale})`;
       });
 
       if (textRef.current) {
-        const opacity = isMobile ? 0.95 : 0.25 + scrollProgress * 0.75;
+        const opacity = isMob ? 0.95 : 0.25 + scrollProgress * 0.75;
         const tsc     = 0.95 + scrollProgress * 0.25;
         textRef.current.style.transform = `translate3d(${cx * 15}px, ${cy * 15}px, 0) scale(${tsc})`;
         textRef.current.style.opacity   = String(opacity);
-        textRef.current.style.zIndex    = scrollProgress > 0.12 ? "10" : "3";
+        textRef.current.style.zIndex    = (isMob || scrollProgress > 0.12) ? "10" : "3";
       }
 
       animId = requestAnimationFrame(loop);
@@ -204,7 +221,7 @@ export default function ParallaxHero() {
 
     animId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animId);
-  }, [isMobile, scrollProgress]);
+  }, [scrollProgress]);
 
   // Scroll progress
   useEffect(() => {
@@ -245,11 +262,12 @@ export default function ParallaxHero() {
           className="parallax-scene"
           style={{ transformStyle: "preserve-3d" }}
         >
-          {layers.map((layer, index) => (
+          {/* Desktop Layers (visible > 768px via CSS) */}
+          {desktopLayers.map((layer, index) => (
             <div
-              key={index}
-              ref={(el) => { layerRefs.current[index] = el; }}
-              className="parallax-layer"
+              key={`desk-${index}`}
+              ref={(el) => { desktopLayerRefs.current[index] = el; }}
+              className="parallax-layer desktop-parallax-layer"
               style={{
                 zIndex: index,
                 transform: `scale(${layer.scale})`,
@@ -257,11 +275,34 @@ export default function ParallaxHero() {
             >
               <Image
                 src={layer.src}
-                alt={`Parallax layer ${index}`}
+                alt={`Desktop layer ${index}`}
                 fill
-                sizes="100vw"
-                quality={85}
+                unoptimized
                 priority={index < 4}
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+            </div>
+          ))}
+
+          {/* Mobile Layers (visible <= 768px via CSS) */}
+          {mobileLayers.map((layer, index) => (
+            <div
+              key={`mob-${index}`}
+              ref={(el) => { mobileLayerRefs.current[index] = el; }}
+              className="parallax-layer mobile-parallax-layer"
+              style={{
+                zIndex: index,
+                transform: `scale(${layer.scale})`,
+              }}
+            >
+              <Image
+                src={layer.src}
+                alt={`Mobile layer ${index}`}
+                fill
+                unoptimized
+                priority
+                sizes="100vw"
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
