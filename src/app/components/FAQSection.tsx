@@ -11,12 +11,17 @@ const faqData: FAQItem[] = [
   {
     question: "When do NIRMIT 2.0 registrations open and close?",
     answer:
-      "Registrations officially open on 5th September 2026. Event schedule dates are To Be Revealed. Because event seats are allocated on a First-Come, First-Served (FCFS) basis, early submission is strongly recommended.",
+      "Registrations officially open on 4th September 2026 and close on 23rd September 2026. Official festival dates are 11th October – 15th October 2026. Seats are allocated on a First-Come, First-Served (FCFS) basis.",
   },
   {
     question: "What makes NIRMIT 2.0 Edition special?",
     answer:
-      "NIRMIT 2.0 marks the grand return of NMIET's flagship festival after a 10-year hiatus following NIRMIT 1.0 (2016). It features 10+ high-octane flagship events including Falcon Strike Drone Arena, Agentic AI Hackathon, Project Ultron IoT Display, and Civil Wars Esports.",
+      "NIRMIT 2.0 marks the grand return of NMIET's flagship festival after a 10-year hiatus following NIRMIT 1.0 (2016). It features 15+ high-octane flagship events including Falcon Strike Drone Arena, Agentic AI Hackathon, Project Ultron IoT Display, Infinity Faces, and Civil Wars Esports.",
+  },
+  {
+    question: "How can I contact the NIRMIT 2.0 team for queries?",
+    answer:
+      "You can reach our official helpline desk at +91 7328829287 or email us directly at edcell@nmiet.ac.in. All student & faculty inquiries are handled through this unified contact channel.",
   },
   {
     question: "Who can participate in NIRMIT 2.0?",

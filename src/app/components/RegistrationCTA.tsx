@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useRegistrationModal } from "./RegistrationModal";
+import { getRegistrationUrl } from "../data/registrationLinks";
 
 export default function RegistrationCTA() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -41,13 +42,15 @@ export default function RegistrationCTA() {
             Register your team for NIRMIT 2.0 Edition. Seats are filled on a strictly first-come, first-served basis!
           </p>
           <div className={`reveal reveal-delay-2${isRevealed ? " revealed" : ""}`}>
-            <button
-              onClick={openModal}
+            <a
+              href={getRegistrationUrl("default")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="fast-assemble-btn"
-              style={{ fontSize: "1.05rem", padding: "20px 48px", cursor: "pointer" }}
+              style={{ fontSize: "1.05rem", padding: "20px 48px", cursor: "pointer", textDecoration: "none", display: "inline-flex" }}
             >
               CHOOSE YOUR EVENT & REGISTER →
-            </button>
+            </a>
           </div>
         </div>
       </div>

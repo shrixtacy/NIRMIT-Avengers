@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-import { useRegistrationModal } from "../../components/RegistrationModal";
+import { getRegistrationUrl } from "../../data/registrationLinks";
 
 export default function QuantumaniaPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "schedule" | "rules" | "coordinators">("overview");
-  const { openModal } = useRegistrationModal();
 
   return (
     <main className="quantumania-page-container" style={{ minHeight: "100vh", background: "#040507", color: "#ffffff", position: "relative", overflowX: "hidden" }}>
@@ -198,13 +197,15 @@ export default function QuantumaniaPage() {
           <p style={{ color: "rgba(241,245,249,0.85)", fontSize: "1rem", marginBottom: "24px" }}>
             Register your team for Quantumania at Reading Room, Central Library.
           </p>
-          <button
-            onClick={openModal}
+          <a
+            href={getRegistrationUrl("quantumania")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="fast-assemble-btn"
-            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)", color: "#000000", cursor: "pointer", border: "none" }}
+            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)", color: "#000000", cursor: "pointer", border: "none", textDecoration: "none" }}
           >
             REGISTER FOR QUANTUMANIA NOW →
-          </button>
+          </a>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRegistrationModal } from "./RegistrationModal";
+import { getRegistrationUrl } from "../data/registrationLinks";
 
 interface EventData {
   id: string;
@@ -202,6 +203,17 @@ const events: EventData[] = [
     color: "#2dd4bf",
     bgColor: "#021412",
     dialColor: "#0f766e",
+  },
+  {
+    id: "face-painting",
+    name: "INFINITY FACES",
+    category: "FACE PAINTING",
+    domain: "Art & Creativity",
+    description:
+      "Creative face painting competition where participants express futuristic and Marvel superhero character themes on human canvases.",
+    color: "#ec4899",
+    bgColor: "#14020c",
+    dialColor: "#be185d",
   },
 ];
 
@@ -459,13 +471,15 @@ export default function EventsDial() {
               >
                 View More Info →
               </Link>
-              <button
-                onClick={openModal}
+              <a
+                href={getRegistrationUrl(activeEvent.id)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="circle-action-btn"
-                style={{ background: activeEvent.color, color: "#000", cursor: "pointer", border: "none" }}
+                style={{ background: activeEvent.color, color: "#000", cursor: "pointer", border: "none", textDecoration: "none" }}
               >
                 Register Now →
-              </button>
+              </a>
             </div>
           </div>
         </div>

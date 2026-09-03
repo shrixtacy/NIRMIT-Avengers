@@ -35,7 +35,6 @@ const quickLinks = [
   { label: "Events", href: "/events" },
   { label: "Timeline", href: "/timeline" },
   { label: "Rules & Regulations", href: "/rules" },
-  { label: "Gallery", href: "/gallery" },
   { label: "Contact & FAQs", href: "/contact" },
 ];
 
@@ -49,7 +48,7 @@ export default function Footer() {
             <div className="footer-brand-name">NIRMIT 2.0</div>
             <p className="footer-brand-desc">
               NM Institute of Engineering & Technology (NMIET), Bhubaneswar.
-              Returning after 10 years of historic legacy — 5,000+ innovators assembling across 4 high-octane days.
+              Returning after 10 years of historic legacy — 5,000+ innovators assembling across 5 high-octane days.
             </p>
             <div className="footer-socials">
               {socialLinks.map((link) => (
@@ -84,10 +83,10 @@ export default function Footer() {
             <p className="footer-col-title">Venue & Help Desk</p>
             <ul className="footer-links">
               <li>
-                <a href="mailto:nirmit@nmiet.ac.in">nirmit@nmiet.ac.in</a>
+                <a href="mailto:edcell@nmiet.ac.in">edcell@nmiet.ac.in</a>
               </li>
               <li>
-                <a href="tel:+919876543210">+91 98765 43210</a>
+                <a href="tel:+917328829287">+91 7328829287</a>
               </li>
               <li>
                 <span>NMIET Campus, Sijua, Patrapada, Bhubaneswar, Odisha 751019</span>

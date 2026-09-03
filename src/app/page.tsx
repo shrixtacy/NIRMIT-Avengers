@@ -2,6 +2,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import ParallaxHero from "./components/ParallaxHero";
 import AboutSection from "./components/AboutSection";
 import MarqueeBanner from "./components/MarqueeBanner";
+import FestStatsBanner from "./components/FestStatsBanner";
 import PrizePoolSection from "./components/PrizePoolSection";
 import EventsDial from "./components/EventsDial";
 import TimelineSection from "./components/TimelineSection";
@@ -17,6 +18,7 @@ export default function Home() {
       <ParallaxHero />
       <AboutSection />
       <MarqueeBanner />
+      <FestStatsBanner />
       <EventsDial />
       <PrizePoolSection />
       <TimelineSection />

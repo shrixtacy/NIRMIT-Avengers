@@ -13,45 +13,49 @@ interface DaySchedule {
 
 const schedule: DaySchedule[] = [
   {
-    day: "TBR",
-    date: "Day 1 (To Be Revealed)",
+    day: "OCT 11",
+    date: "11 October 2026",
     title: "Launch & Displays",
     highlights: [
-      "Drone Obstacle Course (7 AM)",
-      "Tech Themed Painting (8 AM)",
-      "IoT Display Showcase (12 PM)",
-      "Panel Discussion (1 PM)",
+      "Inauguration Ceremony (10:00 AM)",
+      "Falcon Strike - Drone Obstacle (8:00 AM - 1:00 PM)",
+      "Stark Expo - Tech Poster Presentation (10:00 AM)",
+      "Infinity Canvas - Canvas Painting (10:00 AM)",
+      "Project Ultron - IoT Display (2:00 PM - 5:00 PM)",
+      "Council of Heroes - Panel Discussion (3:00 PM)",
+      "Thunderbolts - AD Mad Show (3:00 PM)",
     ],
   },
   {
-    day: "TBR",
-    date: "Day 2 (To Be Revealed)",
+    day: "OCT 12",
+    date: "12 October 2026",
     title: "Battle & Ideation",
     highlights: [
-      "Techno Dance (8 AM - 8 PM)",
-      "Tech Quiz Championship (8 AM)",
-      "Ideathon Pitch (12 PM)",
-      "Expert Talk Series (1 PM)",
+      "Guardians of the Groove - Techno Dance (10 AM - 8 PM)",
+      "Shield Boardroom - CXO Round Table (10:00 AM)",
+      "Quantumania - Tech Biz Quiz (10:00 AM)",
+      "Multiverse of Ideas - Ideathon (1:00 PM - 5:00 PM)",
+      "Marvel of Minds - Expert Talk / Workshop (3:00 PM)",
     ],
   },
   {
-    day: "TBR",
-    date: "Day 3 (To Be Revealed)",
-    title: "Esports Combat",
+    day: "OCT 13",
+    date: "13 October 2026",
+    title: "Esports & Creative Combat",
     highlights: [
-      "Free Fire Gaming Tournament (1:30 PM)",
-      "Live Arena Stream",
-      "Qualifying Bracket Showdowns",
+      "Infinity Faces - Face Painting (10 AM)",
+      "Battle of Brands - Marketing Maverick (9 AM - 1 PM)",
+      "Civil Wars - Free Fire Gaming Tournament (3 PM)",
     ],
   },
   {
-    day: "TBR",
-    date: "Day 4 & 5 (To Be Revealed)",
+    day: "OCT 14-15",
+    date: "14 – 15 October 2026",
     title: "Agentic AI Hackathon",
     highlights: [
-      "Day 1: 8 AM Launch & Sprint",
-      "Day 1: 2 PM Mid Evaluation",
-      "Day 2: 10 AM Main Evaluation",
+      "NexTech 2.0 Launch (Oct 14, 8:00 AM)",
+      "Mid Evaluation (Oct 14, 2:00 PM - 6:00 PM)",
+      "Main Jury Evaluation (Oct 15, 10:00 AM - 3:00 PM)",
       "Grand Award Ceremony & Closing",
     ],
   },
@@ -95,7 +99,7 @@ export default function TimelineSection() {
         <div className={`timeline-header reveal${isRevealed ? " revealed" : ""}`} style={{ textAlign: "center" }}>
           <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "8px 20px", borderRadius: "999px", marginBottom: "16px" }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.85rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.1em" }}>
-              REGISTRATION DATES: TO BE REVEALED
+              FESTIVAL DATES: 11 - 15 OCTOBER 2026
             </span>
           </div>
           <h2 className="section-title" style={{ display: "block" }}>EVENT TIMELINE</h2>

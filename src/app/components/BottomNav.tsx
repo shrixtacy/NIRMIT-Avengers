@@ -69,7 +69,6 @@ const navItems: NavItem[] = [
   { id: "events",   href: "/events",   label: "Events",            icon: <EventsIcon />   },
   { id: "timeline", href: "/timeline", label: "Timeline",          icon: <TimelineIcon /> },
   { id: "rules",    href: "/rules",    label: "Rules & Regs",      icon: <RulesIcon />    },
-  { id: "gallery",  href: "/gallery",  label: "Gallery",           icon: <GalleryIcon />  },
   { id: "contact",  href: "/contact",  label: "Contact",           icon: <ContactIcon />  },
 ];
 
@@ -116,20 +115,26 @@ export default function BottomNav() {
                     aria-label={item.label}
                   >
                     <span className="mobile-nav-item-icon">{item.icon}</span>
+                    <span className="mobile-nav-item-label">{item.label}</span>
                   </Link>
                 );
               })}
             </div>
 
-            {/* Burger sits at the bottom of the pill */}
+            {/* Prominent Burger Trigger sits at the bottom of the pill */}
             <button
               className="mobile-nav-burger"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
-              <span className="burger-line" />
-              <span className="burger-line" />
-              <span className="burger-line" />
+              <div className="burger-trigger-inner">
+                <div className="burger-lines-box">
+                  <span className="burger-line" />
+                  <span className="burger-line" />
+                  <span className="burger-line" />
+                </div>
+                <span className="burger-menu-label">{menuOpen ? "CLOSE" : "MENU"}</span>
+              </div>
             </button>
           </div>
         </nav>

@@ -7,6 +7,7 @@ import EventsDial from "../components/EventsDial";
 import Footer from "../components/Footer";
 
 import { useRegistrationModal } from "../components/RegistrationModal";
+import { getRegistrationUrl } from "../data/registrationLinks";
 
 interface TrumpEvent {
   id: string;
@@ -38,9 +39,9 @@ const trumpEvents: TrumpEvent[] = [
       "Precision aerial waypoint tracking & speed laps.",
       "Custom obstacle ring gates & crash telemetry.",
     ],
-    date: "To Be Revealed",
+    date: "11 October 2026",
     time: "8:00 AM - 1:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "7:00 AM - 8:00 AM",
     venue: "Football Ground",
     leads: ["Santosh Sahu", "J. Binita", "Sanjay Ray"],
   },
@@ -57,11 +58,11 @@ const trumpEvents: TrumpEvent[] = [
       "Mid evaluation checkpoint on Day 1 (2 PM - 6 PM).",
       "Main jury demo on Day 2 (10 AM - 3 PM).",
     ],
-    date: "To Be Revealed",
+    date: "14 - 15 October 2026",
     time: "Day 1 Launch 8 AM | Day 2 Final 3 PM",
-    reporting: "To Be Revealed",
+    reporting: "8:00 AM on 10 Oct / 14 Oct",
     venue: "Auditorium, MBA Block",
-    leads: ["Pragyan Srichandan", "Sanjay Dash", "Maneesh Yadav", "SK Saffruddin"],
+    leads: ["Shriyansh Dash", "Om Prakash Nahak", "Aman Singh"],
   },
   {
     id: "multiverse",
@@ -76,11 +77,11 @@ const trumpEvents: TrumpEvent[] = [
       "Focus on sustainability, AI, & smart engineering.",
       "Live Q&A and prototype evaluation by industry jury.",
     ],
-    date: "To Be Revealed",
+    date: "12 October 2026",
     time: "1:00 PM - 5:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "12:00 PM - 1:00 PM",
     venue: "Seminar Hall, MBA Block",
-    leads: ["Monalisa Sethi", "Dr. Subhasree Bose", "Abinash Pradhan"],
+    leads: ["Jaswant Patro", "J. Binita", "Santosh Sahu"],
   },
   {
     id: "ultron",
@@ -95,9 +96,9 @@ const trumpEvents: TrumpEvent[] = [
       "Live demonstrations to faculty & visiting delegates.",
       "Awards for most innovative project & best pitch.",
     ],
-    date: "To Be Revealed",
+    date: "11 October 2026",
     time: "2:00 PM - 5:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "12:00 PM - 1:00 PM",
     venue: "Electrical Block Hallway",
     leads: ["Jitendra Padhi", "Bhagyalaxmi Devi", "Pranaya Rout"],
   },
@@ -114,11 +115,11 @@ const trumpEvents: TrumpEvent[] = [
       "Live match shoutcasting & spectator arena.",
       "Prize pool & battle victory trophy for top squad.",
     ],
-    date: "To Be Revealed",
+    date: "13 October 2026",
     time: "3:00 PM - 5:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "1:30 PM - 2:00 PM",
     venue: "Auditorium, MBA Block",
-    leads: ["Rashmi Rath", "Om Prakash Narayan Kar", "Prabir Das"],
+    leads: ["Rashmi Ranjan Rath", "Om Prakash Narayan Kar", "Prabir Das"],
   },
   {
     id: "groove",
@@ -133,11 +134,11 @@ const trumpEvents: TrumpEvent[] = [
       "Solo & group dance routines in futuristic gear.",
       "Stadium audio, light synchronization & judging.",
     ],
-    date: "To Be Revealed",
+    date: "12 October 2026",
     time: "10:00 AM - 8:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "8:00 AM - 9:00 AM",
     venue: "Auditorium, MBA Block",
-    leads: ["Saroj Jena", "Sushree Sucharita Kar", "Bhabani Sankar Sahani"],
+    leads: ["Saroj Jena", "Sushree Sucharita Kar"],
   },
   {
     id: "quantumania",
@@ -152,9 +153,9 @@ const trumpEvents: TrumpEvent[] = [
       "Buzzer rounds, visual code snippets, & mystery trivia.",
       "Team trivia battle with instant leaderboard.",
     ],
-    date: "To Be Revealed",
+    date: "12 October 2026",
     time: "10:00 AM - 12:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "8:00 AM - 9:00 AM",
     venue: "Reading Room, Central Library",
     leads: ["Chanchal Mukherjee", "Neeha Pradhani", "Sangram Behera"],
   },
@@ -171,11 +172,30 @@ const trumpEvents: TrumpEvent[] = [
       "Canvas & painting materials provided on venue.",
       "Judged on creativity, theme relevance, & detail.",
     ],
-    date: "To Be Revealed",
+    date: "11 October 2026",
     time: "10:00 AM - 1:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "8:00 AM - 9:00 AM",
     venue: "Reading Room, Central Library",
-    leads: ["Madhubrata Dash", "Tusharkanta Das", "Swarna Prava Sahu"],
+    leads: ["Madhubrata Dash", "Sambit Sethy", "Swarnaprava Sahoo"],
+  },
+  {
+    id: "face-painting",
+    name: "Infinity Faces (Face Painting)",
+    tier: "silver",
+    frameImg: "/cards/silver-card.webp",
+    bgImg: "/about-arena.webp",
+    tag: "INFINITY FACES • FACE PAINTING",
+    domain: "Art & Creativity",
+    points: [
+      "Express futuristic themes & superhero alter-egos.",
+      "Creative painting on live human canvas models.",
+      "Evaluated on artistic quality, detail & expression.",
+    ],
+    date: "13 October 2026",
+    time: "10:00 AM - 12:00 PM",
+    reporting: "9:00 AM - 10:00 AM",
+    venue: "Conference Hall, Academic Block",
+    leads: ["Barsha Priyadarshini", "Gopabandhu Sahu", "Bhagyalaxmi Devi"],
   },
   {
     id: "council-heroes",
@@ -190,11 +210,11 @@ const trumpEvents: TrumpEvent[] = [
       "Keynotes from CTOs, academic leaders, & founders.",
       "Interactive audience Q&A & career mentoring.",
     ],
-    date: "To Be Revealed",
+    date: "11 October 2026",
     time: "3:00 PM - 5:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "1:00 PM - 2:00 PM",
     venue: "Auditorium, MBA Block",
-    leads: ["Kashinath Pati", "Barsha Priyadarshini", "Sambit Sethy"],
+    leads: ["Kashinath Pati", "Sambit Sethi", "Barsha Priyadarshinee"],
   },
   {
     id: "marvel-minds",
@@ -209,11 +229,11 @@ const trumpEvents: TrumpEvent[] = [
       "Insights into next-decade engineering trends.",
       "Networking opportunity with distinguished speakers.",
     ],
-    date: "To Be Revealed",
+    date: "12 October 2026",
     time: "3:00 PM - 5:00 PM",
-    reporting: "To Be Revealed",
+    reporting: "1:00 PM - 2:00 PM",
     venue: "Conference Hall, Academic Block",
-    leads: ["Prajnadipta Sahu", "Bijaya Gouda", "Gopabandhu Sahu"],
+    leads: ["Academic Faculty Team"],
   },
   {
     id: "tech-poster",
@@ -228,11 +248,11 @@ const trumpEvents: TrumpEvent[] = [
       "Focus on renewable energy, AI, & smart systems.",
       "Interactive jury review & peer voting.",
     ],
-    date: "7 October 2026",
+    date: "11 October 2026",
     time: "10:00 AM - 1:00 PM",
-    reporting: "9:00 AM - 10:00 AM",
-    venue: "Academic Block Hallway",
-    leads: ["Priyabrata Mohanty", "Alok Kumar Swain"],
+    reporting: "8:00 AM - 9:00 AM",
+    venue: "Academic Conference Hall",
+    leads: ["Ankeeta Mohanty", "Priyabrata Muduli"],
   },
   {
     id: "ad-mad",
@@ -247,49 +267,49 @@ const trumpEvents: TrumpEvent[] = [
       "Judged on humor, brand strategy, & stage acting.",
       "Prop usage & team choreography encouraged.",
     ],
-    date: "8 October 2026",
-    time: "2:00 PM - 5:00 PM",
+    date: "11 October 2026",
+    time: "3:00 PM - 5:00 PM",
     reporting: "1:00 PM - 2:00 PM",
-    venue: "MBA Seminar Hall",
-    leads: ["Sunita Dash", "Soumya Ranjan Panda"],
+    venue: "Seminar Hall, MBA Block",
+    leads: ["Subhasmita Mam", "Nilima Mam"],
   },
   {
     id: "marketing-showdown",
-    name: "Marketing Showdown",
+    name: "Battle of Brands",
     tier: "silver",
     frameImg: "/cards/silver-card.webp",
     bgImg: "/about-panorama.webp",
-    tag: "BUSINESS CASE PITCH",
+    tag: "MARKETING MAVERICK PITCH",
     domain: "Marketing & Business",
     points: [
       "Solve real-world corporate marketing case studies.",
       "Pitch growth campaigns to industry leaders.",
       "Q&A on ROI, budget allocation, & market penetration.",
     ],
-    date: "9 October 2026",
-    time: "10:00 AM - 1:00 PM",
-    reporting: "9:00 AM - 10:00 AM",
-    venue: "Conference Hall, Academic Block",
-    leads: ["Subhasish Ray", "Ananya Jena"],
+    date: "13 October 2026",
+    time: "9:00 AM - 1:00 PM",
+    reporting: "8:00 AM - 9:00 AM",
+    venue: "Seminar Hall, MBA Block",
+    leads: ["Nitin Sir", "Subhasmita Mam"],
   },
   {
     id: "cxo-summit",
-    name: "CXO Executive Summit",
+    name: "Shield Boardroom",
     tier: "bronze",
     frameImg: "/cards/bronze-card.webp",
     bgImg: "/about-hero.webp",
-    tag: "ROUNDTABLE SUMMIT",
+    tag: "CXO ROUND TABLE SUMMIT",
     domain: "Business & Tech",
     points: [
       "Exclusive roundtable discussion with industry CXOs.",
       "Dialogue on future tech trends & AI adoption.",
       "Industry-academic partnership vision building.",
     ],
-    date: "9 October 2026",
-    time: "2:00 PM - 4:30 PM",
-    reporting: "1:00 PM - 2:00 PM",
-    venue: "Executive Boardroom, MBA Block",
-    leads: ["Rakesh Kumar Parida", "Dr. S. N. Das"],
+    date: "12 October 2026",
+    time: "10:00 AM - 1:00 PM",
+    reporting: "8:00 AM - 9:00 AM",
+    venue: "Seminar Hall, MBA Block",
+    leads: ["Akankhya Mam"],
   },
 ];
 
@@ -312,7 +332,7 @@ export default function EventsPage() {
         <div style={{ textAlign: "center", marginBottom: "50px" }}>
           <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "6px 20px", borderRadius: "999px", marginBottom: "16px" }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.82rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.12em" }}>
-              REGISTRATION DATES: TO BE REVEALED
+              FESTIVAL DATES: 11 - 15 OCTOBER 2026
             </span>
           </div>
 
@@ -488,13 +508,15 @@ export default function EventsPage() {
               ⚡ <strong>Constraint Notice:</strong> Registration window: Dates To Be Revealed. First-come, first-served allocation policy applies!
             </div>
 
-            <button
-              onClick={openModal}
+            <a
+              href={getRegistrationUrl(selectedEvent.id)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="fast-assemble-btn"
-              style={{ width: "100%", justifyContent: "center", cursor: "pointer" }}
+              style={{ width: "100%", justifyContent: "center", cursor: "pointer", textDecoration: "none" }}
             >
               REGISTER FOR {selectedEvent.name.toUpperCase()} NOW →
-            </button>
+            </a>
           </div>
         </div>
       )}

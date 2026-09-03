@@ -17,100 +17,154 @@ interface ScheduleItem {
 const scheduleItems: ScheduleItem[] = [
   {
     id: 1,
-    date: "To Be Revealed",
+    date: "11 October 2026",
     eventName: "Drone Obstacle Course (Falcon Strike)",
     reportingTime: "7:00 AM - 8:00 AM",
     eventTime: "8:00 AM - 1:00 PM",
     venue: "Football Ground",
-    facultyLeads: ["Santosh Sahu", "J. Binita", "Sanjay Ray"],
+    facultyLeads: ["Sanjay Ray", "Santosh Sahu", "J Binita"],
   },
   {
     id: 2,
-    date: "To Be Revealed",
-    eventName: "Tech Themed Painting",
+    date: "11 October 2026",
+    eventName: "Inauguration Ceremony",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "10:00 AM - 1:00 PM",
-    venue: "Reading Room, Central Library",
-    facultyLeads: ["Madhubrata Dash", "Tusharkanta Das", "Swarna Prava Sahu"],
+    venue: "Auditorium, MBA Block",
+    facultyLeads: ["NMIET Convenors"],
   },
   {
     id: 3,
-    date: "To Be Revealed",
-    eventName: "IoT Display (Project Ultron)",
-    reportingTime: "12:00 PM - 1:00 PM",
-    eventTime: "2:00 PM - 5:00 PM",
-    venue: "Electrical Block Hallway",
-    facultyLeads: ["Jitendra Padhi", "Bhagyalaxmi Devi", "Pranaya Rout"],
+    date: "11 October 2026",
+    eventName: "Technical Poster Presentation (Stark Expo)",
+    reportingTime: "8:00 AM - 9:00 AM",
+    eventTime: "10:00 AM - 1:00 PM",
+    venue: "Academic Conference Hall",
+    facultyLeads: ["Ankeeta Mohanty", "Priyabrata Muduli"],
   },
   {
     id: 4,
-    date: "To Be Revealed",
-    eventName: "Panel Discussion",
-    reportingTime: "1:00 PM - 2:00 PM",
-    eventTime: "3:00 PM - 5:00 PM",
-    venue: "Auditorium, MBA Block",
-    facultyLeads: ["Kashinath Pati", "Barsha Priyadarshini", "Sambit Sethy"],
+    date: "11 October 2026",
+    eventName: "Canvas Painting (Infinity Canvas)",
+    reportingTime: "8:00 AM - 9:00 AM",
+    eventTime: "10:00 AM - 1:00 PM",
+    venue: "Reading Room, Central Library",
+    facultyLeads: ["Madhubrata Dash", "Sambit Sethy", "Swarnaprava Sahoo"],
   },
   {
     id: 5,
-    date: "To Be Revealed",
-    eventName: "Techno Dance",
-    reportingTime: "8:00 AM - 9:00 AM",
-    eventTime: "10:00 AM - 8:00 PM",
-    venue: "Auditorium, MBA Block",
-    facultyLeads: ["Saroj Jena", "Sushree Sucharita Kar", "Bhabani Sankar Sahani"],
+    date: "11 October 2026",
+    eventName: "IoT Display (Project Ultron)",
+    reportingTime: "12:00 PM - 1:00 PM",
+    eventTime: "2:00 PM - 5:00 PM",
+    venue: "Electrical Block Hallway, NMIET",
+    facultyLeads: ["Jitendra Padhi", "Bhagyalaxmi Devi", "Pranay Rout"],
   },
   {
     id: 6,
-    date: "To Be Revealed",
-    eventName: "Tech Quiz Championship",
+    date: "11 October 2026",
+    eventName: "Panel Discussion (Council of Heroes)",
+    reportingTime: "1:00 PM - 2:00 PM",
+    eventTime: "3:00 PM - 5:00 PM",
+    venue: "Auditorium, MBA Block",
+    facultyLeads: ["Kashinath Pati", "Sambit Sethi", "Barsha Priyadarshinee"],
+  },
+  {
+    id: 7,
+    date: "11 October 2026",
+    eventName: "AD Mad Show (Thunderbolts)",
+    reportingTime: "1:00 PM - 2:00 PM",
+    eventTime: "3:00 PM - 5:00 PM",
+    venue: "Seminar Hall, MBA Block",
+    facultyLeads: ["Subhasmita Mam", "Nilima Mam"],
+  },
+  {
+    id: 8,
+    date: "12 October 2026",
+    eventName: "Techno Dance (Guardians of the Groove)",
+    reportingTime: "8:00 AM - 9:00 AM",
+    eventTime: "10:00 AM - 8:00 PM",
+    venue: "Auditorium, MBA Block",
+    facultyLeads: ["Saroj Sir", "Sushree Sucharita Kar"],
+  },
+  {
+    id: 9,
+    date: "12 October 2026",
+    eventName: "CXO Round Table (Shield Boardroom)",
+    reportingTime: "8:00 AM - 9:00 AM",
+    eventTime: "10:00 AM - 1:00 PM",
+    venue: "Seminar Hall, MBA Block",
+    facultyLeads: ["Akankhya Mam"],
+  },
+  {
+    id: 10,
+    date: "12 October 2026",
+    eventName: "Tech Biz Quiz (Quantumania)",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "10:00 AM - 12:00 PM",
     venue: "Reading Room, Central Library",
     facultyLeads: ["Chanchal Mukherjee", "Neeha Pradhani", "Sangram Behera"],
   },
   {
-    id: 7,
-    date: "To Be Revealed",
-    eventName: "Ideathon 2026",
+    id: 11,
+    date: "12 October 2026",
+    eventName: "Ideathon (Multiverse of Ideas)",
     reportingTime: "12:00 PM - 1:00 PM",
     eventTime: "1:00 PM - 5:00 PM",
     venue: "Seminar Hall, MBA Block",
     facultyLeads: ["Jaswant Patro", "J. Binita", "Santosh Sahu"],
   },
   {
-    id: 8,
-    date: "To Be Revealed",
-    eventName: "Expert Talk Series",
+    id: 12,
+    date: "12 October 2026",
+    eventName: "Expert Talk / Workshop (Marvel of Minds)",
     reportingTime: "1:00 PM - 2:00 PM",
     eventTime: "3:00 PM - 5:00 PM",
     venue: "Conference Hall, Academic Block",
-    facultyLeads: ["Prajnadipta Sahu", "Bijaya Gouda", "Gopabandhu Sahu"],
+    facultyLeads: ["Academic Faculty Team"],
   },
   {
-    id: 9,
-    date: "To Be Revealed",
+    id: 13,
+    date: "13 October 2026",
+    eventName: "Face Painting (Infinity Faces)",
+    reportingTime: "9:00 AM - 10:00 AM",
+    eventTime: "10:00 AM - 12:00 PM",
+    venue: "Conference Hall, Academic Block",
+    facultyLeads: ["Barsha Priyadarshini", "Gopabandhu Sahu", "Bhagyalaxmi Devi"],
+  },
+  {
+    id: 14,
+    date: "13 October 2026",
+    eventName: "Marketing Maverick (Battle of Brands)",
+    reportingTime: "8:00 AM - 9:00 AM",
+    eventTime: "9:00 AM - 1:00 PM",
+    venue: "Seminar Hall, MBA Block",
+    facultyLeads: ["Nitin Sir", "Subhasmita Mam"],
+  },
+  {
+    id: 15,
+    date: "13 October 2026",
     eventName: "Free Fire Gaming Tournament (Civil Wars)",
     reportingTime: "1:30 PM - 2:00 PM",
     eventTime: "3:00 PM - 5:00 PM",
     venue: "Auditorium, MBA Block",
-    facultyLeads: ["Rashmi Rath", "Om Prakash Narayan Kar", "Prabir Das"],
+    facultyLeads: ["Rashmi Ranjan Rath", "Om Prakash Narayan Kar", "Prabir Das"],
   },
   {
-    id: 10,
-    date: "To Be Revealed",
-    eventName: "Agentic AI Hackathon (48-Hr Sprint)",
-    reportingTime: "To Be Revealed",
-    eventTime: "Day 1 Launch 8 AM | Mid Eval 2-6 PM | Day 2 Final Eval 10 AM-3 PM",
+    id: 16,
+    date: "14 – 15 October 2026",
+    eventName: "Agentic AI Hackathon (NexTech 2.0)",
+    reportingTime: "8:00 AM Launch",
+    eventTime: "Day 1: 8:00 AM - 6:00 PM | Day 2: 10:00 AM - 3:00 PM",
     venue: "Auditorium, MBA Block",
-    facultyLeads: ["Pragyan Srichandan", "Sanjay Dash", "Maneesh Yadav", "SK Saffruddin", "Pradeep Kumar Parida", "Ajay Kumar Beura"],
+    facultyLeads: ["Shriyansh Dash", "Om Prakash Nahak", "Aman Singh"],
   },
 ];
 
 export default function TimelinePage() {
   const [selectedDate, setSelectedDate] = useState<string>("all");
 
-  const datesList = ["all", "To Be Revealed"];
+  const datesList = ["all", "11 October 2026", "12 October 2026", "13 October 2026", "14 – 15 October 2026"];
 
   const filteredItems = selectedDate === "all"
     ? scheduleItems
@@ -157,11 +211,11 @@ export default function TimelinePage() {
           </div>
 
           <h1 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "#ffffff", letterSpacing: "0.04em", margin: "4px 0 12px 0" }}>
-            REGISTRATION DATES: <span style={{ color: "#ffffff", textDecoration: "underline" }}>TO BE REVEALED</span>
+            REGISTRATION OPENS: <span style={{ color: "#ffffff", textDecoration: "underline" }}>4TH SEPT 2026</span>
           </h1>
 
           <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#cbd5e1", letterSpacing: "0.04em" }}>
-            CLOSING DATE: <span style={{ color: "#ffffff" }}>TO BE REVEALED</span>
+            CLOSING DATE: <span style={{ color: "#ffffff" }}>23RD SEPT 2026</span>
           </h2>
 
           <p style={{ color: "rgba(241,245,249,0.8)", fontSize: "1rem", marginTop: "12px" }}>
