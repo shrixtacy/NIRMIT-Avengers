@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import { useRegistrationModal } from "../../components/RegistrationModal";
+import { getRegistrationUrl } from "../../data/registrationLinks";
 
 interface EventDetails {
   id: string;
@@ -518,13 +519,15 @@ export default function DynamicEventPage({ params }: { params: Promise<{ id: str
           <p style={{ color: "rgba(241,245,249,0.85)", fontSize: "1rem", marginBottom: "24px" }}>
             Registration window opens 5th September 2026. Secure your slot now.
           </p>
-          <button
-            onClick={openModal}
+          <a
+            href={getRegistrationUrl(eventData.id)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="fast-assemble-btn"
-            style={{ display: "inline-flex", margin: "0 auto", cursor: "pointer", border: "none" }}
+            style={{ display: "inline-flex", margin: "0 auto", cursor: "pointer", border: "none", textDecoration: "none" }}
           >
             REGISTER FOR {eventData.name} NOW →
-          </button>
+          </a>
         </div>
       </div>
 

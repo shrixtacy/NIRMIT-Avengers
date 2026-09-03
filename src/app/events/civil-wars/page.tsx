@@ -3,11 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useRegistrationModal } from "../../components/RegistrationModal";
+import { getRegistrationUrl } from "../../data/registrationLinks";
 
 export default function CivilWarsEventPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
-  const { openModal } = useRegistrationModal();
 
   return (
     <main className="civil-page-container">
@@ -277,9 +276,9 @@ export default function CivilWarsEventPage() {
             <p>Register your 4-player crew for Free Fire tournament at MBA Auditorium.</p>
           </div>
           <div className="cta-buttons">
-            <button onClick={openModal} className="civil-register-btn" style={{ cursor: "pointer", border: "none" }}>
+            <a href={getRegistrationUrl("civil-wars")} target="_blank" rel="noopener noreferrer" className="civil-register-btn" style={{ cursor: "pointer", border: "none", textDecoration: "none", display: "inline-flex" }}>
               REGISTER FOR CIVIL WARS →
-            </button>
+            </a>
           </div>
         </div>
       </div>

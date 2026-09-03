@@ -10,13 +10,20 @@ const CRITICAL_IMAGES = [
   "/layers/mobile-layer-1.webp",
 ];
 
+let hasLoadedOnce = false;
+
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [isFadingHud, setIsFadingHud] = useState(false);
   const [isOpeningGate, setIsOpeningGate] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(hasLoadedOnce);
 
   useEffect(() => {
+    if (hasLoadedOnce) {
+      setIsComplete(true);
+      return;
+    }
+
     let loadedCount = 0;
     const totalImages = CRITICAL_IMAGES.length;
 
@@ -53,7 +60,8 @@ export default function LoadingScreen() {
           setIsOpeningGate(true);
 
           setTimeout(() => {
-            // Step 3: Unmount loading overlay completely
+            // Step 3: Mark complete globally & unmount loading overlay
+            hasLoadedOnce = true;
             setIsComplete(true);
           }, 850); // Matches gate slide transition duration
         }, 220); // Delay before gates split open

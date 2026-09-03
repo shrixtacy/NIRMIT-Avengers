@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-import { useRegistrationModal } from "../../components/RegistrationModal";
+import { getRegistrationUrl } from "../../data/registrationLinks";
 
 export default function GuardiansOfGroovePage() {
   const [activeTab, setActiveTab] = useState<"overview" | "schedule" | "rules" | "coordinators">("overview");
-  const { openModal } = useRegistrationModal();
 
   return (
     <main className="groove-page-container" style={{ minHeight: "100vh", background: "#040507", color: "#ffffff", position: "relative", overflowX: "hidden" }}>
@@ -198,13 +197,15 @@ export default function GuardiansOfGroovePage() {
           <p style={{ color: "rgba(241,245,249,0.85)", fontSize: "1rem", marginBottom: "24px" }}>
             Register your dance squad for Guardians of the Groove before slots fill up.
           </p>
-          <button
-            onClick={openModal}
+          <a
+            href={getRegistrationUrl("groove")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="fast-assemble-btn"
-            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #c084fc 0%, #a855f7 100%)", color: "#ffffff", cursor: "pointer", border: "none" }}
+            style={{ display: "inline-flex", margin: "0 auto", background: "linear-gradient(135deg, #c084fc 0%, #a855f7 100%)", color: "#ffffff", cursor: "pointer", border: "none", textDecoration: "none" }}
           >
             REGISTER FOR GUARDIANS OF THE GROOVE →
-          </button>
+          </a>
         </div>
       </div>
 

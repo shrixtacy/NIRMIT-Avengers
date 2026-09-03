@@ -188,7 +188,7 @@ export default function AboutSection() {
                   <span className="stat-label-text">HIATUS BROKEN</span>
                 </div>
                 <div className="stat-unit">
-                  <span className="stat-value-gold">10+ FLAGSHIP</span>
+                  <span className="stat-value-gold">15+ FLAGSHIP</span>
                   <span className="stat-label-text">HIGH-OCTANE EVENTS</span>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function AboutSection() {
                 </blockquote>
 
                 <p className="frame-action-desc">
-                  Registration opens 3rd Sept 2026 and closes 23rd Sept 2026. Assemble your team and step into the arena.
+                  Registration opens 4th Sept 2026 and closes 23rd Sept 2026. Assemble your team and step into the arena.
                 </p>
 
                 <Link href="/events" className="fast-assemble-btn">

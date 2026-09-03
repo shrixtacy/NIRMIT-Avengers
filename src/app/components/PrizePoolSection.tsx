@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRegistrationModal } from "./RegistrationModal";
+import { getRegistrationUrl } from "../data/registrationLinks";
 
 export default function PrizePoolSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -9,7 +10,7 @@ export default function PrizePoolSection() {
   const [count, setCount] = useState(0);
   const { openModal } = useRegistrationModal();
 
-  const TARGET_AMOUNT = 150000;
+  const TARGET_AMOUNT = 170000;
   const DURATION_MS = 2400; // 2.4 second dramatic increment
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function PrizePoolSection() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [hasAnimated]);
 
-  // Format currency with Indian comma format (e.g., 1,50,000)
+  // Format currency with Indian comma format (e.g., 1,70,000)
   const formattedCount = new Intl.NumberFormat("en-IN").format(count);
 
   return (
@@ -74,7 +75,7 @@ export default function PrizePoolSection() {
             TOTAL PRIZE POOL
           </h2>
           <p className="prizepool-subtitle">
-            Compete across 10+ high-octane engineering battlegrounds, gaming arenas, and ideathons for glory and massive rewards!
+            Compete across 15+ high-octane engineering battlegrounds, gaming arenas, and ideathons for glory and massive rewards!
           </p>
         </div>
 
@@ -87,7 +88,7 @@ export default function PrizePoolSection() {
           
           <div className="prizepool-badge-row">
             <span className="prizepool-live-badge">
-              <span className="live-dot" /> OVER 1.5 LAKHS+
+              <span className="live-dot" /> OVER 1.7 LAKHS+
             </span>
             <span className="prizepool-tech-badge">NIRMIT 2.0 BENCHMARK</span>
           </div>
@@ -101,7 +102,7 @@ export default function PrizePoolSection() {
           </div>
 
           <div className="prizepool-label">
-            ONE LAKH FIFTY THOUSAND RUPEES + EXCLUSIVE MERCHANDISE
+            ONE LAKH SEVENTY THOUSAND RUPEES + EXCLUSIVE MERCHANDISE
           </div>
 
           <div className="prizepool-shine-line" />
@@ -136,9 +137,9 @@ export default function PrizePoolSection() {
 
         {/* CTA Button */}
         <div className="prizepool-cta-wrapper">
-          <button onClick={openModal} className="prizepool-cta-btn" style={{ cursor: "pointer", border: "none" }}>
+          <a href={getRegistrationUrl("default")} target="_blank" rel="noopener noreferrer" className="prizepool-cta-btn" style={{ cursor: "pointer", border: "none", textDecoration: "none", display: "inline-flex" }}>
             CLAIM YOUR REWARDS — REGISTER NOW →
-          </button>
+          </a>
         </div>
       </div>
     </section>
