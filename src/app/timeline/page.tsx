@@ -17,7 +17,7 @@ interface ScheduleItem {
 const scheduleItems: ScheduleItem[] = [
   {
     id: 1,
-    date: "7 October 2026",
+    date: "To Be Revealed",
     eventName: "Drone Obstacle Course (Falcon Strike)",
     reportingTime: "7:00 AM - 8:00 AM",
     eventTime: "8:00 AM - 1:00 PM",
@@ -26,7 +26,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 2,
-    date: "7 October 2026",
+    date: "To Be Revealed",
     eventName: "Tech Themed Painting",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "10:00 AM - 1:00 PM",
@@ -35,7 +35,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 3,
-    date: "7 October 2026",
+    date: "To Be Revealed",
     eventName: "IoT Display (Project Ultron)",
     reportingTime: "12:00 PM - 1:00 PM",
     eventTime: "2:00 PM - 5:00 PM",
@@ -44,7 +44,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 4,
-    date: "7 October 2026",
+    date: "To Be Revealed",
     eventName: "Panel Discussion",
     reportingTime: "1:00 PM - 2:00 PM",
     eventTime: "3:00 PM - 5:00 PM",
@@ -53,7 +53,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 5,
-    date: "8 October 2026",
+    date: "To Be Revealed",
     eventName: "Techno Dance",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "10:00 AM - 8:00 PM",
@@ -62,7 +62,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 6,
-    date: "8 October 2026",
+    date: "To Be Revealed",
     eventName: "Tech Quiz Championship",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "10:00 AM - 12:00 PM",
@@ -71,7 +71,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 7,
-    date: "8 October 2026",
+    date: "To Be Revealed",
     eventName: "Ideathon 2026",
     reportingTime: "12:00 PM - 1:00 PM",
     eventTime: "1:00 PM - 5:00 PM",
@@ -80,7 +80,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 8,
-    date: "8 October 2026",
+    date: "To Be Revealed",
     eventName: "Expert Talk Series",
     reportingTime: "1:00 PM - 2:00 PM",
     eventTime: "3:00 PM - 5:00 PM",
@@ -89,7 +89,7 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 9,
-    date: "9 October 2026",
+    date: "To Be Revealed",
     eventName: "Free Fire Gaming Tournament (Civil Wars)",
     reportingTime: "1:30 PM - 2:00 PM",
     eventTime: "3:00 PM - 5:00 PM",
@@ -98,9 +98,9 @@ const scheduleItems: ScheduleItem[] = [
   },
   {
     id: 10,
-    date: "10 - 11 October 2026",
+    date: "To Be Revealed",
     eventName: "Agentic AI Hackathon (48-Hr Sprint)",
-    reportingTime: "8:00 AM on 10 Oct 2026",
+    reportingTime: "To Be Revealed",
     eventTime: "Day 1 Launch 8 AM | Mid Eval 2-6 PM | Day 2 Final Eval 10 AM-3 PM",
     venue: "Auditorium, MBA Block",
     facultyLeads: ["Pragyan Srichandan", "Sanjay Dash", "Maneesh Yadav", "SK Saffruddin", "Pradeep Kumar Parida", "Ajay Kumar Beura"],
@@ -110,7 +110,7 @@ const scheduleItems: ScheduleItem[] = [
 export default function TimelinePage() {
   const [selectedDate, setSelectedDate] = useState<string>("all");
 
-  const datesList = ["all", "7 October 2026", "8 October 2026", "9 October 2026", "10 - 11 October 2026"];
+  const datesList = ["all", "To Be Revealed"];
 
   const filteredItems = selectedDate === "all"
     ? scheduleItems
@@ -157,11 +157,11 @@ export default function TimelinePage() {
           </div>
 
           <h1 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "#ffffff", letterSpacing: "0.04em", margin: "4px 0 12px 0" }}>
-            REGISTRATION STARTS: <span style={{ color: "#ffffff", textDecoration: "underline" }}>3RD SEPT 2026</span>
+            REGISTRATION DATES: <span style={{ color: "#ffffff", textDecoration: "underline" }}>TO BE REVEALED</span>
           </h1>
 
           <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#cbd5e1", letterSpacing: "0.04em" }}>
-            CLOSING DATE: <span style={{ color: "#ffffff" }}>23RD SEPT 2026</span>
+            CLOSING DATE: <span style={{ color: "#ffffff" }}>TO BE REVEALED</span>
           </h2>
 
           <p style={{ color: "rgba(241,245,249,0.8)", fontSize: "1rem", marginTop: "12px" }}>

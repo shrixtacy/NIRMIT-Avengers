@@ -3,9 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
+import { useRegistrationModal } from "./RegistrationModal";
+
 export default function RegistrationCTA() {
   const [isRevealed, setIsRevealed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { openModal } = useRegistrationModal();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,7 +33,7 @@ export default function RegistrationCTA() {
         <div className="cta-content" style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
           <div className={`reveal${isRevealed ? " revealed" : ""}`} style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "6px 18px", borderRadius: "999px", marginBottom: "20px" }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.8rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.12em" }}>
-              START: 3RD SEPT 2026 | CLOSING: 23RD SEPT 2026
+              REGISTRATION DATES: TO BE REVEALED
             </span>
           </div>
           <h2 className={`cta-title reveal${isRevealed ? " revealed" : ""}`} style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(3rem, 7vw, 5rem)", color: "#ffffff", letterSpacing: "0.04em" }}>READY TO ASSEMBLE?</h2>
@@ -38,13 +41,13 @@ export default function RegistrationCTA() {
             Register your team for NIRMIT 2.0 Edition. Seats are filled on a strictly first-come, first-served basis!
           </p>
           <div className={`reveal reveal-delay-2${isRevealed ? " revealed" : ""}`}>
-            <Link
-              href="/events"
+            <button
+              onClick={openModal}
               className="fast-assemble-btn"
-              style={{ fontSize: "1.05rem", padding: "20px 48px" }}
+              style={{ fontSize: "1.05rem", padding: "20px 48px", cursor: "pointer" }}
             >
               CHOOSE YOUR EVENT & REGISTER →
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const faqData: FAQItem[] = [
   {
     question: "When do NIRMIT 2.0 registrations open and close?",
     answer:
-      "Registrations officially open on 3rd September 2026 and strictly close on 23rd September 2026. Because event seats are allocated on a First-Come, First-Served (FCFS) basis, early submission is strongly recommended.",
+      "Registrations officially open on 5th September 2026. Event schedule dates are To Be Revealed. Because event seats are allocated on a First-Come, First-Served (FCFS) basis, early submission is strongly recommended.",
   },
   {
     question: "What makes NIRMIT 2.0 Edition special?",
@@ -26,12 +26,12 @@ const faqData: FAQItem[] = [
   {
     question: "How do team registrations and constraints work?",
     answer:
-      "One team leader registers the squad via our portal. Note that Agentic AI Hackathon requires mandatory attendance during the Day 1 Mid-Evaluation (2 PM - 6 PM on 10 Oct). Teams failing mid-evaluation will not advance to Day 2 final judging.",
+      "One team leader registers the squad via our portal. Note that Agentic AI Hackathon requires mandatory attendance during the Day 1 Mid-Evaluation. Teams failing mid-evaluation will not advance to Day 2 final judging.",
   },
   {
     question: "Is accommodation provided at NMIET Campus?",
     answer:
-      "Yes, outstation participants can request hostel accommodation during registration. Allocation is provided on a first-come, first-served basis once registration closes on 23rd September.",
+      "Yes, outstation participants can request hostel accommodation during registration. Allocation is provided on a first-come, first-served basis.",
   },
   {
     question: "What equipment must participants bring?",

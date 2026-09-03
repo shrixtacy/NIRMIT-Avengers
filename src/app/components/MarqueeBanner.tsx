@@ -9,7 +9,7 @@ export default function MarqueeBanner() {
     "FALCON STRIKE DRONE ARENA",
     "5000+ TOP INNOVATORS",
     "NMIET BHUBANESWAR",
-    "REGISTRATION 3RD SEPT - 23RD SEPT",
+    "REGISTRATION DATES: TO BE REVEALED",
   ];
 
   const renderSilverTrack = (keyPrefix: string) => (

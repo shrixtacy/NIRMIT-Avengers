@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRegistrationModal } from "./RegistrationModal";
 
 interface EventData {
   id: string;
@@ -219,6 +220,7 @@ export default function EventsDial() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { openModal } = useRegistrationModal();
 
   const goTo = useCallback((targetIndex: number) => {
     const nextIndex = (targetIndex + events.length) % events.length;
@@ -245,13 +247,22 @@ export default function EventsDial() {
   }, [activeIndex, goTo]);
 
   useEffect(() => {
-    if (isPaused) return;
+    const handleVisibility = () => {
+      if (document.hidden) {
+        setIsPaused(true);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    if (isPaused) return () => document.removeEventListener("visibilitychange", handleVisibility);
 
     intervalRef.current = setInterval(() => {
       goTo(activeIndex + 1);
     }, AUTO_ROTATE_INTERVAL);
 
     return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isPaused, activeIndex, goTo]);
@@ -448,25 +459,13 @@ export default function EventsDial() {
               >
                 View More Info →
               </Link>
-              <a
-                href={
-                  activeEvent.id === "falcon-strike"
-                    ? "/events/falcon-strike"
-                    : activeEvent.id === "ultron"
-                    ? "/events/ultron"
-                    : activeEvent.id === "civil-wars"
-                    ? "/events/civil-wars"
-                    : activeEvent.id === "groove"
-                    ? "/events/groove"
-                    : activeEvent.id === "quantumania"
-                    ? "/events/quantumania"
-                    : `#register`
-                }
+              <button
+                onClick={openModal}
                 className="circle-action-btn"
-                style={{ background: activeEvent.color, color: "#000" }}
+                style={{ background: activeEvent.color, color: "#000", cursor: "pointer", border: "none" }}
               >
                 Register Now →
-              </a>
+              </button>
             </div>
           </div>
         </div>

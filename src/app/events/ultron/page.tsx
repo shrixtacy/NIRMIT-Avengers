@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 export default function UltronEventPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   return (
     <main className="ultron-page-container">
@@ -73,7 +75,7 @@ export default function UltronEventPage() {
             <span className="ultron-stat-icon">📅</span>
             <div className="ultron-stat-info">
               <span className="stat-card-label">EVENT DATE</span>
-              <span className="stat-card-value">7 October 2026</span>
+              <span className="stat-card-value">To Be Revealed</span>
             </div>
           </div>
 
@@ -280,9 +282,9 @@ export default function UltronEventPage() {
             <p>Register your hardware prototype for Project Ultron at Electrical Block Hallway.</p>
           </div>
           <div className="cta-buttons">
-            <a href="/#register" className="ultron-register-btn">
+            <button onClick={openModal} className="ultron-register-btn" style={{ cursor: "pointer", border: "none" }}>
               REGISTER FOR PROJECT ULTRON →
-            </a>
+            </button>
           </div>
         </div>
       </div>
