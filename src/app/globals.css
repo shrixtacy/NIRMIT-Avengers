@@ -1061,6 +1061,7 @@ body {
   overflow: hidden;
   padding-top: 30px;
   user-select: none;
+  touch-action: pan-y;
 }
 
 .events-bg-container {
@@ -1649,32 +1650,61 @@ body {
     justify-content: center;
   }
 
-  .events-nav-prev {
-    left: 8px;
-  }
-
-  .events-nav-next {
-    right: 8px;
+  .events-controls-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px auto 0;
+    padding: 0 12px;
+    z-index: 25;
   }
 
   .events-nav-btn {
-    width: 36px;
-    height: 36px;
-    top: 40%;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .events-nav-btn:hover {
+    transform: scale(1.08) !important;
+  }
+
+  .events-nav-prev,
+  .events-nav-next {
+    left: auto;
+    right: auto;
   }
 
   .events-indicators {
-    bottom: 10px;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 0;
     gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .events-indicator {
-    width: 12px;
+    width: 10px;
     height: 3px;
   }
 
   .events-indicator.active {
-    width: 28px;
+    width: 24px;
   }
 }
 
