@@ -19,11 +19,14 @@ export default function AboutSection() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
-    // On mobile, skip horizontal parallax entirely — content is vertical
+    // On mobile, skip horizontal parallax entirely — rendered as a single section
     if (isMobile) return;
 
     let animationFrameId: number;
@@ -90,33 +93,63 @@ export default function AboutSection() {
     };
   }, [isMobile]);
 
+  // ── Mobile View: Single Compact Section ───────────────────────────────────
+  if (isMobile) {
+    return (
+      <section id="about" className="about-mobile-single-section">
+        <div className="about-mobile-single-card">
+          <div className="frame-meta-bar" style={{ justifyContent: "center" }}>
+            <span className="meta-num-badge">NIRMIT 2.0</span>
+            <span className="meta-tag gold">THE RETURN AFTER A DECADE</span>
+          </div>
+
+          <h2 className="about-mobile-single-title">
+            10 YEARS IN THE MAKING
+          </h2>
+
+          <div className="about-mobile-single-body">
+            <p>
+              A decade ago, <strong>NIRMIT 1.0</strong> set the gold benchmark for technological innovation and academic rivalry at <strong>NM Institute of Engineering & Technology (NMIET), Bhubaneswar</strong>.
+            </p>
+            <p>
+              After 10 years of intense anticipation, <strong>NIRMIT 2.0 Edition</strong> is officially back — bigger, bolder, and powered by next-gen Agentic AI, Autonomous Drones, IoT Display, and Esports arenas!
+            </p>
+          </div>
+
+          <div className="about-mobile-single-actions">
+            <Link href="/events" className="fast-assemble-btn" style={{ textDecoration: "none" }}>
+              EXPLORE ALL EVENTS →
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── Desktop View: Original 4-Frame Horizontal Parallax Track ──────────────
   return (
     <section id="about" ref={containerRef} className="about-parallel-container">
       <div className="about-sticky-viewport">
-        {/* Video background — only on desktop, skip download on mobile */}
-        {!isMobile && (
-          <div className="about-video-bg">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-            >
-              <source src="/about-bg.webm" type="video/webm" />
-              <source src="/about-bg.mp4" type="video/mp4" />
-            </video>
-            <div className="about-video-overlay" />
-          </div>
-        )}
+        {/* Video background — only on desktop */}
+        <div className="about-video-bg">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          >
+            <source src="/about-bg.webm" type="video/webm" />
+            <source src="/about-bg.mp4" type="video/mp4" />
+          </video>
+          <div className="about-video-overlay" />
+        </div>
 
         {/* Continuous horizontal track across 4 connected frames */}
         <div ref={trackRef} className="about-parallel-track">
 
-          {/* ============================================================
-             FRAME 1: HERO COVER (CENTERED NIRMIT + LEFT ABOUT + RIGHT-BOTTOM SCROLL HINT)
-             ============================================================ */}
+          {/* FRAME 1: HERO COVER */}
           <div className="about-frame frame-1">
             <div className="hero-custom-layout">
               <div className="hero-left-about">
@@ -135,9 +168,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* ============================================================
-             FRAME 2: OBSERVATION N°01 — 10 YEARS IN THE MAKING
-             ============================================================ */}
+          {/* FRAME 2: OBSERVATION N°01 — 10 YEARS IN THE MAKING */}
           <div className="about-frame frame-2">
             <div className="frame-clean-content">
               <div className="frame-meta-bar">
@@ -164,9 +195,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* ============================================================
-             FRAME 3: OBSERVATION N°02 — THE INNOVATION ARENA
-             ============================================================ */}
+          {/* FRAME 3: OBSERVATION N°02 — THE INNOVATION ARENA */}
           <div className="about-frame frame-3">
             <div className="frame-clean-content">
               <div className="frame-meta-bar">
@@ -195,9 +224,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* ============================================================
-             FRAME 4: OBSERVATION N°03 — READY TO ASSEMBLE
-             ============================================================ */}
+          {/* FRAME 4: OBSERVATION N°03 — READY TO ASSEMBLE */}
           <div className="about-frame frame-4">
             <div className="frame-clean-content">
               <div className="frame-meta-bar">
