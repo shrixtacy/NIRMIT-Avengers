@@ -234,6 +234,51 @@ export default function EventsDial() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { openModal } = useRegistrationModal();
 
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const touchEndXRef = useRef<number | null>(null);
+  const touchEndYRef = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+    touchEndXRef.current = e.touches[0].clientX;
+    touchEndYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.touches[0].clientX;
+    touchEndYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = () => {
+    if (
+      touchStartXRef.current === null ||
+      touchStartYRef.current === null ||
+      touchEndXRef.current === null ||
+      touchEndYRef.current === null
+    ) {
+      return;
+    }
+
+    const deltaX = touchEndXRef.current - touchStartXRef.current;
+    const deltaY = touchEndYRef.current - touchStartYRef.current;
+
+    // Minimum swipe threshold of 40px & horizontal movement dominance
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    touchEndXRef.current = null;
+    touchEndYRef.current = null;
+  };
+
   const goTo = useCallback((targetIndex: number) => {
     const nextIndex = (targetIndex + events.length) % events.length;
     if (nextIndex === activeIndex || isTransitioning) return;
@@ -287,6 +332,9 @@ export default function EventsDial() {
       className="events-section"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Dynamic Background Image / Color Tint */}
       <div
@@ -410,27 +458,6 @@ export default function EventsDial() {
         </div>
       )}
 
-      {/* Navigation arrows */}
-      <button
-        className="events-nav-btn events-nav-prev"
-        onClick={goPrev}
-        aria-label="Previous event"
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </button>
-
-      <button
-        className="events-nav-btn events-nav-next"
-        onClick={goNext}
-        aria-label="Next event"
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-      </button>
-
       {/* Semi-circular dial */}
       <div className="events-dial-wrapper">
         <div
@@ -485,21 +512,44 @@ export default function EventsDial() {
         </div>
       </div>
 
-      {/* Indicators at bottom */}
-      <div className="events-indicators">
-        {events.map((event, index) => (
-          <button
-            key={event.id}
-            className={`events-indicator${index === activeIndex ? " active" : ""}`}
-            onClick={() => goTo(index)}
-            aria-label={`Go to ${event.name}`}
-            style={
-              index === activeIndex
-                ? { background: event.color, width: "36px" }
-                : undefined
-            }
-          />
-        ))}
+      {/* Controls & Navigation */}
+      <div className="events-controls-wrapper">
+        <button
+          className="events-nav-btn events-nav-prev"
+          onClick={goPrev}
+          aria-label="Previous event"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        {/* Indicators at bottom */}
+        <div className="events-indicators">
+          {events.map((event, index) => (
+            <button
+              key={event.id}
+              className={`events-indicator${index === activeIndex ? " active" : ""}`}
+              onClick={() => goTo(index)}
+              aria-label={`Go to ${event.name}`}
+              style={
+                index === activeIndex
+                  ? { background: event.color, width: "36px" }
+                  : undefined
+              }
+            />
+          ))}
+        </div>
+
+        <button
+          className="events-nav-btn events-nav-next"
+          onClick={goNext}
+          aria-label="Next event"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
       </div>
     </section>
   );
