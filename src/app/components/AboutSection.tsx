@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function AboutSection() {
   const containerRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Parallax element refs for dynamic speed offsets
   const frame1TitleRef = useRef<HTMLHeadingElement>(null);
@@ -29,24 +30,18 @@ export default function AboutSection() {
     // On mobile, skip horizontal parallax entirely — rendered as a single section
     if (isMobile) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
     let targetProgress = 0;
     let currentProgress = 0;
+    let isVisible = false;
+    let isAnimating = false;
 
-    const onScroll = () => {
-      if (!containerRef.current) return;
-      const top = containerRef.current.offsetTop;
-      const height = containerRef.current.offsetHeight - window.innerHeight;
-      if (height <= 0) return;
-      const scrolled = window.scrollY - top;
-      targetProgress = Math.max(0, Math.min(1, scrolled / height));
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    // 60fps GPU translate3d hardware accelerated scroll
     const updateParallax = () => {
+      if (!isVisible) {
+        isAnimating = false;
+        return;
+      }
+
       const diff = targetProgress - currentProgress;
       if (Math.abs(diff) > 0.0001) {
         currentProgress += diff * 0.15;
@@ -82,14 +77,56 @@ export default function AboutSection() {
         frame4QuoteRef.current.style.transform = `translate3d(${(p - 0.9) * -120}px, 0, 0)`;
       }
 
-      animationFrameId = requestAnimationFrame(updateParallax);
+      if (Math.abs(targetProgress - currentProgress) > 0.0001) {
+        animationFrameId = requestAnimationFrame(updateParallax);
+      } else {
+        isAnimating = false;
+      }
     };
 
-    animationFrameId = requestAnimationFrame(updateParallax);
+    const startAnimation = () => {
+      if (!isAnimating && isVisible) {
+        isAnimating = true;
+        animationFrameId = requestAnimationFrame(updateParallax);
+      }
+    };
+
+    const onScroll = () => {
+      if (!containerRef.current) return;
+      const top = containerRef.current.offsetTop;
+      const height = containerRef.current.offsetHeight - window.innerHeight;
+      if (height <= 0) return;
+      const scrolled = window.scrollY - top;
+      targetProgress = Math.max(0, Math.min(1, scrolled / height));
+      startAnimation();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (videoRef.current) {
+            if (entry.isIntersecting) {
+              videoRef.current.play().catch(() => {});
+              startAnimation();
+            } else {
+              videoRef.current.pause();
+            }
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [isMobile]);
 
@@ -133,11 +170,13 @@ export default function AboutSection() {
         {/* Video background — only on desktop */}
         <div className="about-video-bg">
           <video
+            ref={videoRef}
+            poster="/about-section-bg.webp"
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             aria-hidden="true"
           >
             <source src="/about-bg.webm" type="video/webm" />
@@ -242,7 +281,7 @@ export default function AboutSection() {
                 </blockquote>
 
                 <p className="frame-action-desc">
-                  Registration opens 4th Sept 2026 and closes 23rd Sept 2026. Assemble your team and step into the arena.
+                  Registration opens 5th Sept 2026 and closes 23rd Sept 2026. Assemble your team and step into the arena.
                 </p>
 
                 <Link href="/events" className="fast-assemble-btn">

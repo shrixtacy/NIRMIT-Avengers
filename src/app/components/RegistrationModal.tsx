@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { getRegistrationUrl, EVENT_REGISTRATION_LINKS } from "../data/registrationLinks";
 
 interface RegistrationModalContextType {
   isOpen: boolean;
@@ -13,22 +12,27 @@ interface RegistrationModalContextType {
 const RegistrationModalContext = createContext<RegistrationModalContextType | undefined>(undefined);
 
 export function RegistrationModalProvider({ children }: { children: ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState<string | undefined>(undefined);
+
   const openModal = (eventId?: string | React.MouseEvent) => {
     let targetId: string | undefined = undefined;
     if (typeof eventId === "string") {
       targetId = eventId;
     }
-    const url = getRegistrationUrl(targetId);
-    if (typeof window !== "undefined") {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
+    setSelectedEventId(targetId);
+    setIsOpen(true);
   };
 
-  const closeModal = () => {};
+  const closeModal = () => {
+    setIsOpen(false);
+    setSelectedEventId(undefined);
+  };
 
   return (
-    <RegistrationModalContext.Provider value={{ isOpen: false, selectedEventId: undefined, openModal, closeModal }}>
+    <RegistrationModalContext.Provider value={{ isOpen, selectedEventId, openModal, closeModal }}>
       {children}
+      {isOpen && <RegistrationModalOverlay eventId={selectedEventId} onClose={closeModal} />}
     </RegistrationModalContext.Provider>
   );
 }
@@ -41,26 +45,7 @@ export function useRegistrationModal() {
   return context;
 }
 
-const ALL_EVENTS_LIST = [
-  { name: "Drone Obstacle Course (Falcon Strike)", key: "falcon-strike" },
-  { name: "IoT Display (Project Ultron)", key: "ultron" },
-  { name: "Agentic AI / Ideathon", key: "multiverse" },
-  { name: "FreeFire (Civil Wars)", key: "civil-wars" },
-  { name: "Nextech 2.0 Project Display", key: "nextech" },
-  { name: "Technical Poster Presentation", key: "tech-poster" },
-  { name: "TechBiz Quiz (Quantumania)", key: "quantumania" },
-  { name: "Canvas Painting (Infinity Canvas)", key: "infinity-canvas" },
-  { name: "Face Painting (Infinity Faces)", key: "face-painting" },
-  { name: "Marketing Maverick (Battle of Brands)", key: "marketing-showdown" },
-  { name: "AD MAD SHOW (Thunderbolts)", key: "ad-mad" },
-  { name: "CXO Roundtable (Shield Boardroom)", key: "cxo-summit" },
-  { name: "Seminar (Marvel of Minds)", key: "marvel-minds" },
-  { name: "Fireside Chat (Council of Heroes)", key: "council-heroes" },
-];
-
 function RegistrationModalOverlay({ eventId, onClose }: { eventId?: string; onClose: () => void }) {
-  const activeUrl = getRegistrationUrl(eventId);
-
   return (
     <div
       className="reg-modal-overlay"
@@ -76,7 +61,6 @@ function RegistrationModalOverlay({ eventId, onClose }: { eventId?: string; onCl
         alignItems: "center",
         justifyContent: "center",
         padding: "20px",
-        animation: "fadeIn 0.25s ease-out forwards",
       }}
     >
       <div
@@ -84,16 +68,13 @@ function RegistrationModalOverlay({ eventId, onClose }: { eventId?: string; onCl
         onClick={(e) => e.stopPropagation()}
         style={{
           position: "relative",
-          width: "min(640px, 94vw)",
-          maxHeight: "88vh",
-          overflowY: "auto",
+          width: "min(520px, 94vw)",
           background: "linear-gradient(145deg, #0f172a 0%, #030712 100%)",
-          border: "1.5px solid rgba(56, 189, 248, 0.45)",
+          border: "1.5px solid rgba(255, 255, 255, 0.25)",
           borderRadius: "24px",
-          padding: "36px 28px",
-          boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(56, 189, 248, 0.3)",
+          padding: "40px 32px",
+          boxShadow: "0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 255, 255, 0.15)",
           textAlign: "center",
-          animation: "scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         }}
       >
         {/* Top Right Close 'X' Button */}
@@ -115,30 +96,29 @@ function RegistrationModalOverlay({ eventId, onClose }: { eventId?: string; onCl
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            transition: "all 0.2s ease",
           }}
         >
           ✕
         </button>
 
         {/* Shield Icon / Badge */}
-        <div style={{ marginBottom: "16px" }}>
+        <div style={{ marginBottom: "20px" }}>
           <span
             style={{
               display: "inline-block",
               fontFamily: "var(--font-geist-mono), monospace",
               fontSize: "0.78rem",
               fontWeight: 800,
-              letterSpacing: "0.2em",
-              color: "#38bdf8",
-              background: "rgba(56, 189, 248, 0.12)",
-              border: "1px solid rgba(56, 189, 248, 0.4)",
+              letterSpacing: "0.15em",
+              color: "#f59e0b",
+              background: "rgba(245, 158, 11, 0.12)",
+              border: "1px solid rgba(245, 158, 11, 0.35)",
               padding: "6px 18px",
               borderRadius: "999px",
               textTransform: "uppercase",
             }}
           >
-            /// REGISTRATION PORTAL LIVE NOW
+            🗓️ REGISTRATION ANNOUNCEMENT
           </span>
         </div>
 
@@ -146,125 +126,64 @@ function RegistrationModalOverlay({ eventId, onClose }: { eventId?: string; onCl
         <h3
           style={{
             fontFamily: "var(--font-bebas-neue), sans-serif",
-            fontSize: "clamp(2rem, 5vw, 2.8rem)",
+            fontSize: "clamp(2.2rem, 5vw, 3.2rem)",
             letterSpacing: "0.04em",
-            margin: "0 0 10px 0",
-            background: "linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            lineHeight: 1.1,
+            margin: "0 0 14px 0",
+            color: "#ffffff",
+            lineHeight: 1.05,
           }}
         >
-          OFFICIAL GOOGLE FORM REGISTRATIONS
+          FORM WILL OPEN ON<br />
+          <span style={{ color: "#38bdf8", textShadow: "0 0 20px rgba(56, 189, 248, 0.5)" }}>5TH SEPT 2026</span>
         </h3>
 
         <p
           style={{
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "0.92rem",
+            fontSize: "0.95rem",
             color: "rgba(241, 245, 249, 0.85)",
-            lineHeight: 1.5,
+            lineHeight: 1.6,
             margin: "0 0 24px 0",
           }}
         >
-          Select an event below to open its official Google Form registration sheet directly.
+          Official registration forms for NIRMIT 2.0 will be released on <strong>5th September 2026</strong>. Prepare your team and stay tuned!
         </p>
 
-        {/* If opened for a specific event */}
+        {/* Event Specific Badge if triggered from an event page */}
         {eventId && (
           <div
             style={{
-              background: "rgba(56, 189, 248, 0.12)",
-              border: "1px solid rgba(56, 189, 248, 0.4)",
-              borderRadius: "14px",
-              padding: "18px",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
+              borderRadius: "12px",
+              padding: "12px",
               marginBottom: "24px",
+              fontSize: "0.82rem",
+              fontFamily: "var(--font-geist-mono), monospace",
+              color: "#cbd5e1",
             }}
           >
-            <span style={{ fontSize: "0.78rem", fontFamily: "var(--font-geist-mono), monospace", color: "#38bdf8", fontWeight: 700 }}>
-              SELECTED EVENT DIRECT LINK
-            </span>
-            <a
-              href={activeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="fast-assemble-btn"
-              style={{
-                display: "inline-flex",
-                width: "100%",
-                justifyContent: "center",
-                marginTop: "10px",
-                textDecoration: "none",
-              }}
-            >
-              LAUNCH GOOGLE FORM FOR THIS EVENT ↗
-            </a>
+            TARGET EVENT: <strong style={{ color: "#ffffff", textTransform: "uppercase" }}>{eventId.replace(/-/g, " ")}</strong>
           </div>
         )}
 
-        {/* List of all Event Form Links */}
-        <div style={{ textAlign: "left", display: "flex", flexDirection: "column", gap: "10px", maxHeight: "320px", overflowY: "auto", paddingRight: "4px" }}>
-          {ALL_EVENTS_LIST.map((item) => {
-            const formUrl = getRegistrationUrl(item.key);
-            const isTarget = eventId === item.key;
-            return (
-              <a
-                key={item.key}
-                href={formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  background: isTarget ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.05)",
-                  border: isTarget ? "1px solid rgba(56, 189, 248, 0.6)" : "1px solid rgba(255, 255, 255, 0.12)",
-                  color: "#ffffff",
-                  textDecoration: "none",
-                  fontSize: "0.88rem",
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(56, 189, 248, 0.15)";
-                  e.currentTarget.style.borderColor = "rgba(56, 189, 248, 0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = isTarget ? "rgba(56, 189, 248, 0.2)" : "rgba(255, 255, 255, 0.05)";
-                  e.currentTarget.style.borderColor = isTarget ? "1px solid rgba(56, 189, 248, 0.6)" : "1px solid rgba(255, 255, 255, 0.12)";
-                }}
-              >
-                <span>{item.name}</span>
-                <span style={{ color: "#38bdf8", fontWeight: 700, fontSize: "0.8rem" }}>FILL FORM ↗</span>
-              </a>
-            );
-          })}
-        </div>
-
-        {/* Close Button */}
+        {/* Action Button */}
         <button
           onClick={onClose}
+          className="fast-assemble-btn"
           style={{
             width: "100%",
-            marginTop: "20px",
-            padding: "12px 24px",
-            borderRadius: "12px",
-            background: "rgba(255, 255, 255, 0.08)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            color: "#ffffff",
-            fontFamily: "var(--font-geist-mono), monospace",
-            fontSize: "0.85rem",
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
+            justifyContent: "center",
+            padding: "14px 28px",
+            fontSize: "0.92rem",
             cursor: "pointer",
+            border: "none",
           }}
         >
-          CLOSE PORTAL
+          GOT IT, I WILL CHECK BACK ON 5TH SEPT →
         </button>
       </div>
     </div>
   );
 }
+

@@ -10,24 +10,30 @@ const CRITICAL_IMAGES = [
   "/layers/mobile-layer-1.webp",
 ];
 
-let hasLoadedOnce = false;
+const checkHasLoaded = (): boolean => {
+  if (typeof window === "undefined") return false;
+  try {
+    return sessionStorage.getItem("nirmit_has_loaded_v2") === "true";
+  } catch {
+    return false;
+  }
+};
 
 export default function LoadingScreen() {
+  const [isComplete, setIsComplete] = useState<boolean>(true);
   const [progress, setProgress] = useState(0);
   const [isFadingHud, setIsFadingHud] = useState(false);
   const [isOpeningGate, setIsOpeningGate] = useState(false);
-  const [isComplete, setIsComplete] = useState(hasLoadedOnce);
 
   useEffect(() => {
-    if (hasLoadedOnce) {
+    if (checkHasLoaded()) {
       setIsComplete(true);
       return;
     }
 
-    let loadedCount = 0;
-    const totalImages = CRITICAL_IMAGES.length;
+    setIsComplete(false);
 
-    // Fast image preloader
+    let loadedCount = 0;
     CRITICAL_IMAGES.forEach((src) => {
       const img = new Image();
       img.src = src;
@@ -36,7 +42,6 @@ export default function LoadingScreen() {
       };
     });
 
-    // Smooth RAF progress counter (completes in ~2.4s)
     let startTimestamp: number | null = null;
     const DURATION = 2400; // ms
 
@@ -52,19 +57,18 @@ export default function LoadingScreen() {
       if (calculatedProgress < 100) {
         animId = requestAnimationFrame(animateProgress);
       } else {
-        // Step 1: Fade out HUD text
         setIsFadingHud(true);
 
         setTimeout(() => {
-          // Step 2: Trigger gate split open
           setIsOpeningGate(true);
 
           setTimeout(() => {
-            // Step 3: Mark complete globally & unmount loading overlay
-            hasLoadedOnce = true;
+            try {
+              sessionStorage.setItem("nirmit_has_loaded_v2", "true");
+            } catch {}
             setIsComplete(true);
-          }, 850); // Matches gate slide transition duration
-        }, 220); // Delay before gates split open
+          }, 850);
+        }, 220);
       }
     };
 

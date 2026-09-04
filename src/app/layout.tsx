@@ -34,9 +34,44 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import SEOStructuredData from "./components/SEOStructuredData";
+import { exhaustiveKeywords, defaultSeoData, SITE_URL } from "./seo-data";
+
 export const metadata: Metadata = {
-  title: "NIRMIT 2.0 — Flagship Tech Festival | NMIET Bhubaneswar",
-  description: "NIRMIT 2.0 Edition returns after 10 years of legacy at NMIET Bhubaneswar. 5000+ Innovators, Drone Obstacle Course, Agentic AI Hackathon, IoT Display, Civil Wars Esports.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: defaultSeoData.title,
+    template: "%s | NIRMIT 2.0 — NMIET Bhubaneswar",
+  },
+  description: defaultSeoData.description,
+  keywords: exhaustiveKeywords,
+  authors: [{ name: "NMIET Student Council & Tech Fest Committee", url: SITE_URL }],
+  creator: "NM Institute of Engineering & Technology (NMIET Bhubaneswar)",
+  publisher: "NIRMIT 2.0 Tech Fest",
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: defaultSeoData.openGraph,
+  twitter: defaultSeoData.twitter,
+  category: "technology",
 };
 
 import { RegistrationModalProvider } from "./components/RegistrationModal";
@@ -44,6 +79,9 @@ import { RegistrationModalProvider } from "./components/RegistrationModal";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${bebasNeue.variable} ${antonio.variable} ${teko.variable} ${geistSans.variable} ${geistMono.variable}`}>
+      <head suppressHydrationWarning>
+        <SEOStructuredData />
+      </head>
       <body suppressHydrationWarning>
         <RegistrationModalProvider>
           <GlobalCornerOverlays />

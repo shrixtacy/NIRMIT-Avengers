@@ -44,7 +44,7 @@ const schedule: DaySchedule[] = [
     title: "Esports & Creative Combat",
     highlights: [
       "Infinity Faces - Face Painting (10 AM)",
-      "Battle of Brands - Marketing Maverick (9 AM - 1 PM)",
+      "Battle of Brands (9 AM - 1 PM)",
       "Civil Wars - Free Fire Gaming Tournament (3 PM)",
     ],
   },
@@ -112,24 +112,30 @@ export default function TimelineSection() {
           {schedule.map((day, index) => (
             <div
               key={day.date}
-              className={`timeline-card reveal reveal-delay-${index + 1}${isRevealed ? " revealed" : ""}`}
-              style={{ background: "linear-gradient(135deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.9) 100%)", border: "1px solid rgba(255,255,255,0.2)" }}
+              className={`timeline-card chamfer-box reveal reveal-delay-${index + 1}${isRevealed ? " revealed" : ""}`}
+              style={{ position: "relative" }}
             >
-              <span className="timeline-card-watermark" style={{ color: "rgba(255,255,255,0.06)" }}>
+              {/* Giant Translucent Background Watermark */}
+              <div className="timeline-card-watermark">
                 {day.day}
-              </span>
-
-              <div className="timeline-card-day" style={{ color: "#ffffff" }}>
-                <span className="timeline-card-day-dot" style={{ background: "#ffffff" }} />
-                {day.date}
               </div>
 
-              <h3 className="timeline-card-date" style={{ color: "#ffffff" }}>{day.title}</h3>
+              {/* Header Row: Date Bullet on Left, Title on Right */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "22px", flexWrap: "wrap", gap: "12px", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "14px", position: "relative", zIndex: 2 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.82rem", fontWeight: 700, color: "#cbd5e1", letterSpacing: "0.12em" }}>
+                  <span style={{ color: "#ffffff", fontSize: "1.1rem" }}>•</span> {day.date.toUpperCase()}
+                </div>
+                <h3 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "1.9rem", color: "#ffffff", letterSpacing: "0.04em", margin: 0, transform: "scaleY(1.12)", transformOrigin: "right center" }}>
+                  {day.title.toUpperCase()}
+                </h3>
+              </div>
 
-              <ul className="timeline-card-events">
-                {day.highlights.map((event) => (
-                  <li key={event} className="timeline-card-event" style={{ color: "rgba(241,245,249,0.85)" }}>
-                    {event}
+              {/* Highlights Bullet List with Triangle Arrow */}
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px", position: "relative", zIndex: 2 }}>
+                {day.highlights.map((event, hIdx) => (
+                  <li key={hIdx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "0.88rem", color: "rgba(241,245,249,0.9)", lineHeight: "1.5" }}>
+                    <span style={{ color: "#cbd5e1", flexShrink: 0, marginTop: "1px", fontSize: "0.8rem" }}>▸</span>
+                    <span>{event}</span>
                   </li>
                 ))}
               </ul>

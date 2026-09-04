@@ -11,7 +11,7 @@ const faqData: FAQItem[] = [
   {
     question: "When do NIRMIT 2.0 registrations open and close?",
     answer:
-      "Registrations officially open on 4th September 2026 and close on 23rd September 2026. Official festival dates are 11th October – 15th October 2026. Seats are allocated on a First-Come, First-Served (FCFS) basis.",
+      "Registrations officially open on 5th September 2026 and close on 23rd September 2026. Official festival dates are 11th October – 15th October 2026. Seats are allocated on a First-Come, First-Served (FCFS) basis.",
   },
   {
     question: "What makes NIRMIT 2.0 Edition special?",

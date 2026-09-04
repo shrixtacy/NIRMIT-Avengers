@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
-
-
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -19,8 +18,20 @@ export default function ContactPage() {
     <main style={{ minHeight: "100vh", background: "#040507", color: "#ffffff", paddingTop: "100px" }}>
       <div className="section-container" style={{ paddingBottom: "60px" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "6px 20px", borderRadius: "999px", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px", position: "relative" }}>
+          {/* Mobile Deadpool: placed on top of OFFICIAL CENTRAL HELPDESK & COORDINATION */}
+          <div className="deadpool-mobile-wrapper">
+            <Image
+              src="/deadpool.webp"
+              alt="Deadpool"
+              width={260}
+              height={260}
+              priority
+              style={{ objectFit: "contain", filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.8))" }}
+            />
+          </div>
+
+          <div style={{ display: "inline-block", background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(148,163,184,0.1) 100%)", border: "1px solid rgba(255,255,255,0.25)", padding: "6px 20px", borderRadius: "999px", marginBottom: "16px", position: "relative", zIndex: 2 }}>
             <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.82rem", fontWeight: 700, color: "#ffffff", letterSpacing: "0.12em" }}>
               OFFICIAL CENTRAL HELPDESK & COORDINATION
             </span>
@@ -35,6 +46,7 @@ export default function ContactPage() {
         {/* Central Official Contact Card */}
         <div
           style={{
+            position: "relative",
             background: "linear-gradient(135deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.95) 100%)",
             border: "1.5px solid rgba(255,255,255,0.35)",
             borderRadius: "20px",
@@ -42,8 +54,20 @@ export default function ContactPage() {
             textAlign: "center",
             boxShadow: "0 15px 40px rgba(0,0,0,0.8), 0 0 25px rgba(255,255,255,0.15)",
             marginBottom: "60px",
+            marginTop: "60px",
           }}
         >
+          {/* Desktop Deadpool: placed just on top of contact box */}
+          <div className="deadpool-desktop-wrapper">
+            <Image
+              src="/deadpool.webp"
+              alt="Deadpool"
+              width={320}
+              height={320}
+              priority
+              style={{ objectFit: "contain", filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.8))" }}
+            />
+          </div>
           <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.8rem", fontWeight: 800, color: "#cbd5e1", letterSpacing: "0.18em", textTransform: "uppercase" }}>
             OFFICIAL HELPDESK — CLICK TO CALL OR EMAIL DIRECTLY
           </span>
