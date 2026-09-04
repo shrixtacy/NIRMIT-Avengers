@@ -111,9 +111,9 @@ export default function FestStatsBanner() {
 
         {/* Clean Metallic Numbers Grid (NO BOXES, NO BLUE) */}
         <div
+          className="fest-stats-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             gap: "40px 20px",
             alignItems: "center",
             textAlign: "center",

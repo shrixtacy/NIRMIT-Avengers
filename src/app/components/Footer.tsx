@@ -38,10 +38,28 @@ const quickLinks = [
   { label: "Contact & FAQs", href: "/contact" },
 ];
 
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer id="footer" className="site-footer">
-      <div className="section-container">
+      {/* Doctor Doom Background Artwork Overlay */}
+      <div className="footer-doom-bg" aria-hidden="true">
+        <Image
+          src="/doomsday-doom.png"
+          alt="Doctor Doom Artwork"
+          fill
+          priority
+          sizes="100vw"
+          style={{
+            objectFit: "cover",
+            objectPosition: "right center",
+          }}
+        />
+        <div className="footer-doom-overlay" />
+      </div>
+
+      <div className="section-container" style={{ position: "relative", zIndex: 10 }}>
         <div className="footer-inner">
           {/* Brand Column */}
           <div>

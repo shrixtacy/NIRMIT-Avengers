@@ -262,51 +262,53 @@ export default function ParallaxHero() {
           className="parallax-scene"
           style={{ transformStyle: "preserve-3d" }}
         >
-          {/* Desktop Layers (visible > 768px via CSS) */}
-          {desktopLayers.map((layer, index) => (
-            <div
-              key={`desk-${index}`}
-              ref={(el) => { desktopLayerRefs.current[index] = el; }}
-              className="parallax-layer desktop-parallax-layer"
-              style={{
-                zIndex: index,
-                transform: `scale(${layer.scale})`,
-              }}
-            >
-              <Image
-                src={layer.src}
-                alt={`Desktop layer ${index}`}
-                fill
-                unoptimized
-                priority={index < 4}
-                sizes="100vw"
-                style={{ objectFit: "cover", objectPosition: "center" }}
-              />
-            </div>
-          ))}
+          {/* Desktop Layers (visible on desktop) */}
+          {!isMobile &&
+            desktopLayers.map((layer, index) => (
+              <div
+                key={`desk-${index}`}
+                ref={(el) => { desktopLayerRefs.current[index] = el; }}
+                className="parallax-layer desktop-parallax-layer"
+                style={{
+                  zIndex: index,
+                  transform: `scale(${layer.scale})`,
+                }}
+              >
+                <Image
+                  src={layer.src}
+                  alt={`Desktop layer ${index}`}
+                  fill
+                  unoptimized
+                  priority={index < 4}
+                  sizes="100vw"
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
+              </div>
+            ))}
 
-          {/* Mobile Layers (visible <= 768px via CSS) */}
-          {mobileLayers.map((layer, index) => (
-            <div
-              key={`mob-${index}`}
-              ref={(el) => { mobileLayerRefs.current[index] = el; }}
-              className="parallax-layer mobile-parallax-layer"
-              style={{
-                zIndex: index,
-                transform: `scale(${layer.scale})`,
-              }}
-            >
-              <Image
-                src={layer.src}
-                alt={`Mobile layer ${index}`}
-                fill
-                unoptimized
-                priority
-                sizes="100vw"
-                style={{ objectFit: "cover", objectPosition: "center" }}
-              />
-            </div>
-          ))}
+          {/* Mobile Layers (visible on mobile) */}
+          {isMobile &&
+            mobileLayers.map((layer, index) => (
+              <div
+                key={`mob-${index}`}
+                ref={(el) => { mobileLayerRefs.current[index] = el; }}
+                className="parallax-layer mobile-parallax-layer"
+                style={{
+                  zIndex: index,
+                  transform: `scale(${layer.scale})`,
+                }}
+              >
+                <Image
+                  src={layer.src}
+                  alt={`Mobile layer ${index}`}
+                  fill
+                  unoptimized
+                  priority={index < 3}
+                  sizes="100vw"
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
+              </div>
+            ))}
 
           <div
             ref={textRef}
