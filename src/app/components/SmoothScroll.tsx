@@ -1,38 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
-  }, []);
+    // Disable smooth scroll library on touch devices, mobile screens, or users preferring reduced motion
+    // Native scroll is 100% reliable, zero-lag, and compatible across all browsers (Edge, Firefox, Safari, Chrome, Android/iOS)
+    if (typeof window === "undefined") return;
 
-  useEffect(() => {
-    // Disable Lenis on mobile — it conflicts with native touch scrolling
-    // and causes sections to appear blank or stuck
-    if (isMobile) return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 768;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1,
-    });
+    if (isTouch || prefersReducedMotion) return;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    let rafId: number;
+    let lenis: Lenis | null = null;
+
+    try {
+      lenis = new Lenis({
+        duration: 1.0,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+      });
+
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        rafId = requestAnimationFrame(raf);
+      };
+
+      rafId = requestAnimationFrame(raf);
+    } catch (err) {
+      console.warn("Smooth scroll initialization fallback to native scroll:", err);
     }
 
-    requestAnimationFrame(raf);
-
     return () => {
-      lenis.destroy();
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenis) lenis.destroy();
     };
-  }, [isMobile]);
+  }, []);
 
-  return <div suppressHydrationWarning>{children}</div>;
+  return <>{children}</>;
 }
