@@ -38,7 +38,7 @@ const rulebookData: RuleSection[] = [
       {
         heading: "1.2 FCFS Registration Window & Seat Capping",
         details:
-          "The official registration portal opens on 5th September 2026. Registration dates and event schedule are To Be Revealed. Due to venue capacity and hardware setup limits, every event operates under strict First-Come, First-Served (FCFS) slot allocation. Once event capacity is reached, waiting lists will be generated automatically.",
+          "The official registration portal opens on 5th September 2026. The official event schedule runs from 11th to 15th October 2026. Due to venue capacity and hardware setup limits, every event operates under strict First-Come, First-Served (FCFS) slot allocation. Once event capacity is reached, waiting lists will be generated automatically.",
       },
       {
         heading: "1.3 Team Formation & Roster Lock Policies",

@@ -47,6 +47,7 @@ const events: EventData[] = [
     color: "#00f0ff",
     bgColor: "#020b14",
     dialColor: "#0284c7",
+    bgImage: "/thanos-bg.webp",
   },
   {
     id: "ultron",
@@ -184,7 +185,7 @@ const events: EventData[] = [
   },
   {
     id: "marketing-showdown",
-    name: "MARKETING SHOWDOWN",
+    name: "BATTLE OF BRANDS",
     category: "MARKETING COMPETITION",
     domain: "Marketing & Business",
     description:
@@ -192,10 +193,11 @@ const events: EventData[] = [
     color: "#818cf8",
     bgColor: "#040414",
     dialColor: "#4338ca",
+    bgImage: "/battle-of-brands-bg.webp",
   },
   {
-    id: "cxo-roundtable",
-    name: "CXO SUMMIT",
+    id: "cxo-summit",
+    name: "SHIELD BOARDROOM",
     category: "CXO ROUND TABLE",
     domain: "Business & Tech",
     description:
@@ -203,6 +205,7 @@ const events: EventData[] = [
     color: "#2dd4bf",
     bgColor: "#021412",
     dialColor: "#0f766e",
+    bgImage: "/shield-boardroom-bg.webp",
   },
   {
     id: "face-painting",
@@ -214,6 +217,7 @@ const events: EventData[] = [
     color: "#ec4899",
     bgColor: "#14020c",
     dialColor: "#be185d",
+    bgImage: "/infinity-faces-bg.webp",
   },
 ];
 
@@ -221,10 +225,10 @@ const AUTO_ROTATE_INTERVAL = 5000;
 
 const getTitleFontSize = (name: string) => {
   const len = name.length;
-  if (len > 20) return "clamp(2.7rem, 8.4vw, 8.9rem)";
-  if (len > 15) return "clamp(3.1rem, 10.2vw, 10.4rem)";
-  if (len > 12) return "clamp(3.5rem, 12vw, 12rem)";
-  return "clamp(4rem, 14vw, 14rem)";
+  if (len > 20) return "clamp(2rem, 7.5vw, 8.5rem)";
+  if (len > 15) return "clamp(2.4rem, 9.2vw, 10rem)";
+  if (len > 12) return "clamp(2.8rem, 11vw, 11.5rem)";
+  return "clamp(3.5rem, 13.5vw, 13.5rem)";
 };
 
 export default function EventsDial() {
@@ -481,32 +485,18 @@ export default function EventsDial() {
 
             <div className="circle-actions-group">
               <Link
-                href={
-                  activeEvent.id === "falcon-strike"
-                    ? "/events/falcon-strike"
-                    : activeEvent.id === "ultron"
-                    ? "/events/ultron"
-                    : activeEvent.id === "civil-wars"
-                    ? "/events/civil-wars"
-                    : activeEvent.id === "groove"
-                    ? "/events/groove"
-                    : activeEvent.id === "quantumania"
-                    ? "/events/quantumania"
-                    : `#events`
-                }
+                href={`/events/${activeEvent.id}`}
                 className="circle-action-link"
               >
                 View More Info →
               </Link>
-              <a
-                href={getRegistrationUrl(activeEvent.id)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openModal(activeEvent.id)}
                 className="circle-action-btn"
                 style={{ background: activeEvent.color, color: "#000", cursor: "pointer", border: "none", textDecoration: "none" }}
               >
-                Register Now →
-              </a>
+                REGISTRATION OPENS 5TH SEPT 🔒
+              </button>
             </div>
           </div>
         </div>

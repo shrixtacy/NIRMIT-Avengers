@@ -135,7 +135,7 @@ const scheduleItems: ScheduleItem[] = [
   {
     id: 14,
     date: "13 October 2026",
-    eventName: "Marketing Maverick (Battle of Brands)",
+    eventName: "Battle of Brands (Marketing Maverick)",
     reportingTime: "8:00 AM - 9:00 AM",
     eventTime: "9:00 AM - 1:00 PM",
     venue: "Seminar Hall, MBA Block",
@@ -197,6 +197,7 @@ export default function TimelinePage() {
         {/* Registration Banner */}
         <div
           style={{
+            position: "relative",
             background: "linear-gradient(135deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.95) 100%)",
             border: "1.5px solid rgba(255,255,255,0.3)",
             borderRadius: "16px",
@@ -206,12 +207,26 @@ export default function TimelinePage() {
             marginBottom: "60px",
           }}
         >
+          {/* Spiderman hanging upside down from bottom-left */}
+          <div className="spiderman-hanging-wrapper">
+            <div className="spiderman-swing">
+              <Image
+                src="/spiderman.webp"
+                alt="Spiderman Hanging Upside Down"
+                width={140}
+                height={246}
+                priority
+                style={{ objectFit: "contain", filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.8))" }}
+              />
+            </div>
+          </div>
+
           <div style={{ display: "inline-block", background: "linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%)", color: "#040507", fontWeight: 800, padding: "6px 16px", borderRadius: "999px", fontSize: "0.85rem", letterSpacing: "0.12em", marginBottom: "12px" }}>
             OFFICIAL REGISTRATION WINDOW
           </div>
 
           <h1 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "#ffffff", letterSpacing: "0.04em", margin: "4px 0 12px 0" }}>
-            REGISTRATION OPENS: <span style={{ color: "#ffffff", textDecoration: "underline" }}>4TH SEPT 2026</span>
+            REGISTRATION OPENS: <span style={{ color: "#ffffff", textDecoration: "underline" }}>5TH SEPT 2026</span>
           </h1>
 
           <h2 style={{ fontFamily: "var(--font-bebas-neue), sans-serif", fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#cbd5e1", letterSpacing: "0.04em" }}>

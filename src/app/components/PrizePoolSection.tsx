@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useRegistrationModal } from "./RegistrationModal";
 import { getRegistrationUrl } from "../data/registrationLinks";
 
@@ -63,6 +64,16 @@ export default function PrizePoolSection() {
 
   return (
     <section id="prizepool" ref={sectionRef} className="prizepool-section">
+      <div className="prizepool-bg-image">
+        <Image
+          src="/prizepool-bg.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "center" }}
+          priority={false}
+        />
+      </div>
       <div className="prizepool-bg-glow" />
       
       <div className="section-container prizepool-content">
@@ -137,9 +148,9 @@ export default function PrizePoolSection() {
 
         {/* CTA Button */}
         <div className="prizepool-cta-wrapper">
-          <a href={getRegistrationUrl("default")} target="_blank" rel="noopener noreferrer" className="prizepool-cta-btn" style={{ cursor: "pointer", border: "none", textDecoration: "none", display: "inline-flex" }}>
-            CLAIM YOUR REWARDS — REGISTER NOW →
-          </a>
+          <button onClick={() => openModal()} className="prizepool-cta-btn" style={{ cursor: "pointer", border: "none", display: "inline-flex" }}>
+            REGISTRATION OPENS 5TH SEPT 🔒
+          </button>
         </div>
       </div>
     </section>

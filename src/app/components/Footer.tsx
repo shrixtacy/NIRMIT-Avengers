@@ -46,7 +46,7 @@ export default function Footer() {
       {/* Doctor Doom Background Artwork Overlay */}
       <div className="footer-doom-bg" aria-hidden="true">
         <Image
-          src="/doomsday-doom.png"
+          src="/doomsday-doom.webp"
           alt="Doctor Doom Artwork"
           fill
           priority
@@ -114,14 +114,30 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="footer-bottom-bar">
-          <p className="footer-copyright">
+        <div className="footer-bottom-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px", borderTop: "1px solid rgba(255,255,255,0.12)", paddingTop: "24px", marginTop: "40px" }}>
+          <p className="footer-copyright" style={{ margin: 0, fontSize: "0.85rem", color: "rgba(241, 245, 249, 0.75)" }}>
             © {new Date().getFullYear()} NIRMIT 2.0 — NMIET Bhubaneswar. All rights reserved.
           </p>
-          <div className="footer-bottom-links">
-            <Link href="/rules">Rules & Protocols</Link>
-            <Link href="/contact">Support & FAQs</Link>
-          </div>
+          <p style={{ margin: 0, fontSize: "0.85rem", color: "rgba(241, 245, 249, 0.75)" }}>
+            Website designed by{" "}
+            <a
+              href="https://www.linkedin.com/in/shriyanshdash/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}
+            >
+              Shriyansh
+            </a>{" "}
+            &amp; Made by{" "}
+            <a
+              href="https://www.elixios.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}
+            >
+              Elixios
+            </a>
+          </p>
         </div>
       </div>
     </footer>

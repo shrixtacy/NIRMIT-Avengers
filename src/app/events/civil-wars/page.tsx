@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { getRegistrationUrl } from "../../data/registrationLinks";
+import { useRegistrationModal } from "../../components/RegistrationModal";
 
 export default function CivilWarsEventPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "rules" | "schedule" | "coordinators">("overview");
+  const { openModal } = useRegistrationModal();
 
   return (
     <main className="civil-page-container">
@@ -49,7 +50,7 @@ export default function CivilWarsEventPage() {
 
       {/* Sticky Top Navigation Bar */}
       <header className="civil-nav-header">
-        <Link href="/#events" className="civil-back-btn">
+        <Link href="/events" className="civil-back-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
@@ -69,36 +70,40 @@ export default function CivilWarsEventPage() {
         </p>
 
         {/* Quick Stats Grid */}
-        <div className="civil-stats-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", marginBottom: "40px" }}>
+          <div className="civil-stat-card">
+            <span className="civil-stat-icon">💰</span>
+            <div className="civil-stat-info">
+              <span className="stat-card-label">ENTRY FEE & PRIZE</span>
+              <span className="stat-card-value" style={{ color: "#ffffff" }}>₹10,000 Total</span>
+              <span style={{ fontSize: "0.78rem", color: "#cbd5e1" }}>Fee: ₹400 / Team</span>
+            </div>
+          </div>
+
           <div className="civil-stat-card">
             <span className="civil-stat-icon">📅</span>
             <div className="civil-stat-info">
-              <span className="stat-card-label">EVENT DATE</span>
-              <span className="stat-card-value">To Be Revealed</span>
-            </div>
-          </div>
-
-          <div className="civil-stat-card">
-            <span className="civil-stat-icon">⏰</span>
-            <div className="civil-stat-info">
-              <span className="stat-card-label">REPORTING TIME</span>
-              <span className="stat-card-value">1:30 PM – 2:00 PM</span>
-            </div>
-          </div>
-
-          <div className="civil-stat-card">
-            <span className="civil-stat-icon">⏱️</span>
-            <div className="civil-stat-info">
-              <span className="stat-card-label">TOURNAMENT TIME</span>
-              <span className="stat-card-value">3:00 PM – 5:00 PM</span>
+              <span className="stat-card-label">EVENT DATE & TIME</span>
+              <span className="stat-card-value" style={{ color: "#ffffff" }}>13 October 2026</span>
+              <span style={{ fontSize: "0.78rem", color: "rgba(241,245,249,0.8)" }}>Report: 2:15 PM (3 PM - 5 PM)</span>
             </div>
           </div>
 
           <div className="civil-stat-card">
             <span className="civil-stat-icon">📍</span>
             <div className="civil-stat-info">
-              <span className="stat-card-label">TOURNAMENT VENUE</span>
+              <span className="stat-card-label">VENUE LOCATION</span>
               <span className="stat-card-value">Auditorium, MBA Block</span>
+              <span style={{ fontSize: "0.78rem", color: "rgba(241,245,249,0.7)" }}>Esports Arena Auditorium</span>
+            </div>
+          </div>
+
+          <div className="civil-stat-card">
+            <span className="civil-stat-icon">👥</span>
+            <div className="civil-stat-info">
+              <span className="stat-card-label">FORMAT & CAPACITY</span>
+              <span className="stat-card-value">Squad (4+1 Sub)</span>
+              <span style={{ fontSize: "0.78rem", color: "#94a3b8" }}>Cap: 24 Squads (No Mid-Eval)</span>
             </div>
           </div>
         </div>
@@ -109,13 +114,13 @@ export default function CivilWarsEventPage() {
             className={`civil-tab-btn ${activeTab === "overview" ? "active" : ""}`}
             onClick={() => setActiveTab("overview")}
           >
-            OVERVIEW
+            OVERVIEW & PRIZES
           </button>
           <button
             className={`civil-tab-btn ${activeTab === "schedule" ? "active" : ""}`}
             onClick={() => setActiveTab("schedule")}
           >
-            TIMELINE & STAGES
+            TIMELINE & ROOM FORMAT
           </button>
           <button
             className={`civil-tab-btn ${activeTab === "rules" ? "active" : ""}`}
@@ -127,7 +132,7 @@ export default function CivilWarsEventPage() {
             className={`civil-tab-btn ${activeTab === "coordinators" ? "active" : ""}`}
             onClick={() => setActiveTab("coordinators")}
           >
-            FACULTY LEADS
+            FACULTY & STUDENT LEADS
           </button>
         </div>
 
@@ -140,26 +145,27 @@ export default function CivilWarsEventPage() {
                 Civil Wars is NIRMIT&apos;s flagship Free Fire esports Battle Royale competition. Squads face off in high-stakes tactical combat testing communication, map awareness, zone rotation, and weapon mastery under live main-stage audience commentary.
               </p>
               <p className="civil-paragraph">
-                Top qualifying squads clash inside the MBA Block Auditorium across custom Bermuda & Kalahari lobbies to claim the ultimate championship trophy.
+                Top qualifying squads clash inside the MBA Block Auditorium across custom elimination lobbies to claim the ultimate championship trophy.
               </p>
             </div>
 
             <div className="civil-grid-two">
               <div className="civil-info-card">
-                <h3>🎮 Squad Roster & Devices</h3>
+                <h3>🎮 Squad Roster & Fee</h3>
                 <ul>
-                  <li>Squad Format: 4 Main Players + 1 Substitute.</li>
-                  <li>Official Mobile Devices only (Emulators strictly banned).</li>
-                  <li>Players must connect to designated campus low-latency Wi-Fi.</li>
+                  <li><strong>Squad Roster:</strong> 4 Main Players + 1 Substitute.</li>
+                  <li><strong>Tournament Cap:</strong> 24 Teams Maximum.</li>
+                  <li><strong>Registration Fee:</strong> ₹400 per Team.</li>
+                  <li><strong>Mid-Evaluation:</strong> NO Online Mid-Evaluation required.</li>
                 </ul>
               </div>
 
               <div className="civil-info-card">
-                <h3>🏆 Prizes & Booyah Trophies</h3>
+                <h3>🏆 Prize Pool Breakdown (₹10,000 Total)</h3>
                 <ul>
-                  <li>Grand Champion Trophy & Cash Prize Pool.</li>
-                  <li>MVP & Most Kills Individual Awards.</li>
-                  <li>Official Certificate of Excellence for Finalist Squads.</li>
+                  <li><strong>🥇 1st Booyah Champion:</strong> ₹5,000 + Winner Trophy</li>
+                  <li><strong>🥈 2nd Runner-up:</strong> ₹3,000 + Certificate</li>
+                  <li><strong>🥉 3rd Runner-up:</strong> ₹2,000 + Certificate</li>
                 </ul>
               </div>
             </div>
@@ -171,34 +177,34 @@ export default function CivilWarsEventPage() {
           <div className="civil-panel">
             <div className="civil-timeline-list">
               <div className="timeline-item">
-                <div className="timeline-time">01:30 PM – 02:00 PM</div>
+                <div className="timeline-time">02:15 PM – 02:45 PM</div>
                 <div className="timeline-content">
-                  <h4>Phase 1: Reporting & Squad Lobby Assignment</h4>
-                  <p>Reporting at MBA Block Auditorium. ID verification, device check, custom room password distribution, and ping check.</p>
+                  <h4>Phase 1: Squad Reporting & Lobby Check</h4>
+                  <p>Reporting at MBA Block Auditorium. ID verification, mobile device check, Wi-Fi pairing, and room password distribution.</p>
                 </div>
               </div>
 
               <div className="timeline-item">
                 <div className="timeline-time">03:00 PM – 03:45 PM</div>
                 <div className="timeline-content">
-                  <h4>Phase 2: Round 1 — Bermuda Survival Qualifier</h4>
-                  <p>12 Squads battle across Bermuda map. Top 6 squads advance based on placement points & kill frag points.</p>
+                  <h4>Phase 2: Stage 1 — Room A & Room B Qualifiers (24 Teams)</h4>
+                  <p>Room A hosts 12 teams and Room B hosts 12 teams live. Top 3 teams from each room (Total 6 teams) advance based on point table.</p>
                 </div>
               </div>
 
               <div className="timeline-item">
-                <div className="timeline-time">03:45 PM – 04:30 PM</div>
+                <div className="timeline-time">04:00 PM – 04:45 PM</div>
                 <div className="timeline-content">
-                  <h4>Phase 3: Round 2 — Kalahari Zone Elimination</h4>
-                  <p>High-tension desert combat with aggressive zone rotations and high-ground vantage battles.</p>
+                  <h4>Phase 3: Stage 2 — Room C Grand Final (Top 6 Teams)</h4>
+                  <p>The top 6 finalist squads clash in a high-tension Booyah showdown broadcast on the main auditorium screen.</p>
                 </div>
               </div>
 
               <div className="timeline-item">
-                <div className="timeline-time">04:30 PM – 05:00 PM</div>
+                <div className="timeline-time">04:45 PM – 05:00 PM</div>
                 <div className="timeline-content">
-                  <h4>Phase 4: Grand Finale & Booyah Ceremony</h4>
-                  <p>Final Booyah showdown on main stage, live point tallying, MVP declaration, and prize distribution.</p>
+                  <h4>Phase 4: Award & Booyah Ceremony</h4>
+                  <p>Final point tallying, MVP declaration, and prize trophy distribution.</p>
                 </div>
               </div>
             </div>
@@ -211,10 +217,10 @@ export default function CivilWarsEventPage() {
             <div className="civil-section-box">
               <h2 className="civil-section-title">TOURNAMENT RULES</h2>
               <ul className="civil-rules-list">
-                <li><strong>No Emulators:</strong> Players must use Android/iOS mobile devices. PC emulators or external triggers are grounds for immediate dq.</li>
-                <li><strong>Fair Play Policy:</strong> Hacks, scripts, or third-party game modifiers result in a permanent ban across NIRMIT events.</li>
-                <li><strong>Point System:</strong> 1 Kill = 1 Point. Placement: #1 (12 pts), #2 (9 pts), #3 (8 pts), #4 (7 pts).</li>
-                <li><strong>Technical Issues:</strong> Rematch will only be triggered if more than 3 squads experience server disconnects prior to 1st safe zone shrinks.</li>
+                <li><strong>Mobile Devices Only:</strong> All matches are played on standard mobile devices in official Free Fire custom rooms. Emulators or PC scripts result in instant disqualification.</li>
+                <li><strong>Reporting Time:</strong> Teams must report to their assigned room lobby 15 minutes before match start; late entries forfeit their slot.</li>
+                <li><strong>Anti-Cheat Policy:</strong> Hacks, triggers, or third-party game modifications result in a permanent ban across NIRMIT events.</li>
+                <li><strong>Point System:</strong> Placement Points + 1 Point per confirmed Kill frag. Quizmaster/Referees decisions are final.</li>
               </ul>
             </div>
 
@@ -238,31 +244,47 @@ export default function CivilWarsEventPage() {
           </div>
         )}
 
-        {/* Tab Panel 4: Faculty Leads */}
+        {/* Tab Panel 4: Faculty & Student Leads */}
         {activeTab === "coordinators" && (
           <div className="civil-panel">
-            <div className="civil-section-box">
-              <h2 className="civil-section-title">FACULTY LEADS & ORGANIZERS</h2>
+            <div className="civil-section-box" style={{ marginBottom: "32px" }}>
+              <h2 className="civil-section-title">FACULTY INCHARGE & CONVENORS</h2>
               <div className="civil-leads-grid">
                 <div className="lead-card">
                   <div className="lead-avatar">RR</div>
-                  <div className="lead-name">Rashmi Rath</div>
-                  <div className="lead-role">Faculty Lead Coordinator</div>
-                  <div className="lead-dept">Esports & Gaming Arena</div>
+                  <div className="lead-name">Rashmi Ranjan Rath</div>
+                  <div className="lead-role">Faculty Convenor</div>
                 </div>
 
                 <div className="lead-card">
                   <div className="lead-avatar">OK</div>
                   <div className="lead-name">Om Prakash Narayan Kar</div>
-                  <div className="lead-role">Faculty Co-Lead</div>
-                  <div className="lead-dept">Tournament Operations</div>
+                  <div className="lead-role">Faculty Convenor</div>
                 </div>
 
                 <div className="lead-card">
                   <div className="lead-avatar">PD</div>
                   <div className="lead-name">Prabir Das</div>
-                  <div className="lead-role">Faculty Co-Lead</div>
-                  <div className="lead-dept">Network & Technical Support</div>
+                  <div className="lead-role">Faculty Convenor</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="civil-section-box">
+              <h2 className="civil-section-title">STUDENT LEADS & CONTACT NUMBERS</h2>
+              <div className="civil-leads-grid">
+                <div className="lead-card">
+                  <div className="lead-avatar">SS</div>
+                  <div className="lead-name">Sukdev Suna</div>
+                  <div className="lead-role">Student Lead • B.Tech ECE (7th Sem)</div>
+                  <a href="tel:+918984941510" style={{ color: "#ffffff", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none", marginTop: "4px", display: "inline-block" }}>📞 +91 89849 41510</a>
+                </div>
+
+                <div className="lead-card">
+                  <div className="lead-avatar">SS</div>
+                  <div className="lead-name">Subham Sing</div>
+                  <div className="lead-role">Student Lead • B.Tech CSE (7th Sem)</div>
+                  <a href="tel:+916372920799" style={{ color: "#ffffff", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none", marginTop: "4px", display: "inline-block" }}>📞 +91 63729 20799</a>
                 </div>
               </div>
             </div>
@@ -273,12 +295,12 @@ export default function CivilWarsEventPage() {
         <div className="civil-cta-footer">
           <div className="cta-content">
             <h3>ASSEMBLE YOUR SQUAD FOR CIVIL WARS</h3>
-            <p>Register your 4-player crew for Free Fire tournament at MBA Auditorium.</p>
+            <p>Fee: ₹400/Team • Prize Pool: ₹10,000. Secure your squad's slot among the 24 room lobbies.</p>
           </div>
           <div className="cta-buttons">
-            <a href={getRegistrationUrl("civil-wars")} target="_blank" rel="noopener noreferrer" className="civil-register-btn" style={{ cursor: "pointer", border: "none", textDecoration: "none", display: "inline-flex" }}>
-              REGISTER FOR CIVIL WARS →
-            </a>
+            <button onClick={() => openModal("civil-wars")} className="civil-register-btn" style={{ cursor: "pointer", border: "none", display: "inline-flex" }}>
+              REGISTRATION OPENS 5TH SEPT 🔒
+            </button>
           </div>
         </div>
       </div>

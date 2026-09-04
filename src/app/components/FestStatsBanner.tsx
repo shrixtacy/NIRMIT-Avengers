@@ -2,13 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getRegistrationUrl } from "../data/registrationLinks";
 
 export default function FestStatsBanner() {
   const [eventCount, setEventCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const mainRegisterUrl = getRegistrationUrl("default");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -262,24 +260,6 @@ export default function FestStatsBanner() {
           >
             VISIT EVENT PAGE →
           </Link>
-
-          <a
-            href={mainRegisterUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="fast-assemble-btn"
-            style={{
-              padding: "16px 36px",
-              fontSize: "0.9rem",
-              background: "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(148,163,184,0.2) 100%)",
-              borderColor: "rgba(255,255,255,0.5)",
-              color: "#ffffff",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            REGISTER NOW ↗
-          </a>
         </div>
       </div>
     </section>
